@@ -95,10 +95,15 @@ public class DialogueManager : MonoBehaviour
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
-        Tutorial tutorial = GetComponent<Tutorial>();
+/*        Tutorial tutorial = GetComponent<Tutorial>();
         if(tutorial != null)
         {
             tutorial.ShowTutorial();
+        }*/
+        GameStarter gameStarter = GetComponent<GameStarter>();
+        if (gameStarter != null)
+        {
+            gameStarter.ShowConfirmation();
         }
     }
 }
