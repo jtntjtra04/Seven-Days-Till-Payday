@@ -41,14 +41,13 @@ public class PriorityPassengerUI : MonoBehaviour
     {
         if ((Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space)) && dialoguebox_on)
         {
-            if (!dialogue_on)
-            {
-                NextDialogue();
-                return;
-            }
             if (dialogue_on)
             {
                 text_speed = 0f;
+            }
+            else
+            {
+                NextDialogue();
             }
         }
     }
@@ -180,7 +179,7 @@ public class PriorityPassengerUI : MonoBehaviour
     }
     private IEnumerator AllowButtonLoading()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         if (passenger_class == "old")
         {
@@ -199,7 +198,7 @@ public class PriorityPassengerUI : MonoBehaviour
     }
     private IEnumerator DenyButtonLoading()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         if (passenger_class == "young")
         {
@@ -218,7 +217,7 @@ public class PriorityPassengerUI : MonoBehaviour
     }
     private IEnumerator DetainButtonLoading()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         StartPriorityDialogue("Detain");
     }

@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 8f44f8bf116aa6e4291470081db19041
+guid: 8039ff5609fda66438a2f240ebd5f56f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5037077426634552820
-    second: cleaner_0
+      213: -2370359041819589970
+    second: cleaner-removebg-preview_0
+  - first:
+      213: -741170924072128303
+    second: cleaner-removebg-preview_1
+  - first:
+      213: -2094476992050000094
+    second: cleaner-removebg-preview_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -72,10 +78,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 8192
     resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureFormat: 4
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,22 +106,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cleaner_0
+      name: cleaner-removebg-preview_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 446
-        height: 365
+        x: 136
+        y: 48
+        width: 189
+        height: 250
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4f5f0b06b3b47e540800000000000000
-      internalID: 5037077426634552820
+      spriteID: 1d035d0b8f4d6b5f0800000000000000
+      internalID: -741170924072128303
       vertices: []
       indices: 
       edges: []
@@ -123,7 +129,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -131,7 +137,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      cleaner_0: 5037077426634552820
+      cleaner-removebg-preview_0: -2370359041819589970
+      cleaner-removebg-preview_1: -741170924072128303
+      cleaner-removebg-preview_2: -2094476992050000094
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

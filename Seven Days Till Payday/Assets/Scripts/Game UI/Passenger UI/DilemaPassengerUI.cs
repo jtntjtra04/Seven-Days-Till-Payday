@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ConfusedPassangerUI : MonoBehaviour
+public class DilemaPassengerUI : MonoBehaviour
 {
     // Queue
     private Queue<string> lines;
@@ -20,25 +19,21 @@ public class ConfusedPassangerUI : MonoBehaviour
     private bool dialogue_on = false;
     public bool dialoguebox_on = false;
 
-    // Check Ticket Minigame
-    public GameObject ticket_check_button;
-    public GameObject options;
-    public Image ticket_image;
-    public Sprite[] ticket_sprite;
-    private int ticket_type;
-    private int passenger_type;
-    private bool ticket_checked = false;
+    // Dilema Passenger Dialogue Data
+    private DilemaPassengerDialogue dilema_dialogue_data;
 
-    // Judgement Dialogue
-    public ConfusedPassengerDialogue confused_dialogue_data;
+    // Dilema Passenger Minigame
+    public GameObject dilema_options;
+    private string passenger_status;
+    private bool passenger_solved = false;
 
     // References
-    private ConfusedPassanger curr_passenger;
+    private DilemaPassenger curr_passenger;
     public PlayerMovement player_movement;
 
     private void Start()
     {
-        ticket_checked = false;
+        passenger_solved = false;
         lines = new Queue<string>();
         names = new Queue<string>();
     }
@@ -56,7 +51,7 @@ public class ConfusedPassangerUI : MonoBehaviour
             }
         }
     }
-    public void StartDialogue(Dialogue dialogue, ConfusedPassanger passenger)
+    public void StartDialogue(Dialogue dialogue, DilemaPassenger passenger)
     {
         curr_passenger = passenger;
 
@@ -79,7 +74,7 @@ public class ConfusedPassangerUI : MonoBehaviour
         }
         NextDialogue();
     }
-    private void StartConfusedDialogue(string decision)
+    private void StartDilemaDialogue(string decision)
     {
         dialogue_box.SetActive(true);
         dialoguebox_on = true;
@@ -89,32 +84,32 @@ public class ConfusedPassangerUI : MonoBehaviour
 
         switch (decision)
         {
-            case "Correct":
-                foreach (string name in confused_dialogue_data.correct_ticket_name)
+            case "Accept":
+                foreach (string name in dilema_dialogue_data.accept_name)
                 {
                     names.Enqueue(name);
                 }
-                foreach (string line in confused_dialogue_data.correct_ticket_line)
+                foreach (string line in dilema_dialogue_data.accept_line)
                 {
                     lines.Enqueue(line);
                 }
                 break;
-            case "Wrong":
-                foreach (string name in confused_dialogue_data.wrong_ticket_name)
+            case "Deny":
+                foreach (string name in dilema_dialogue_data.deny_name)
                 {
                     names.Enqueue(name);
                 }
-                foreach (string line in confused_dialogue_data.wrong_ticket_line)
+                foreach (string line in dilema_dialogue_data.deny_line)
                 {
                     lines.Enqueue(line);
                 }
                 break;
             case "Detain":
-                foreach (string name in confused_dialogue_data.detained_name)
+                foreach (string name in dilema_dialogue_data.detain_name)
                 {
                     names.Enqueue(name);
                 }
-                foreach (string line in confused_dialogue_data.detained_line)
+                foreach (string line in dilema_dialogue_data.detain_line)
                 {
                     lines.Enqueue(line);
                 }
@@ -155,60 +150,49 @@ public class ConfusedPassangerUI : MonoBehaviour
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
-        if(curr_passenger != null && !ticket_checked)
+        if (curr_passenger != null && !passenger_solved)
         {
-            ShowTicketCheckButton();
+            ShowOptions();
         }
-        else if(curr_passenger != null && ticket_checked)
+        else if (curr_passenger != null && passenger_solved)
         {
-            ticket_checked = false;
+            passenger_solved = false;
             Destroy(curr_passenger.gameObject);
         }
     }
-    private void ShowTicketCheckButton()
+    private void ShowOptions()
     {
-        ticket_check_button.SetActive(true);
-        options.SetActive(true);
+        dilema_options.SetActive(true);
         player_movement.DisableMovement();
-        ticket_checked = true;
+        passenger_solved = true;
 
-        ticket_type = curr_passenger.GetTicketType();
-        passenger_type = curr_passenger.GetPassengerType();
+        passenger_status = curr_passenger.GetPassengerStatus();
+        dilema_dialogue_data = curr_passenger.GetDilemaPassengerDialogue();
 
-        Debug.Log("ticket : " + ticket_type);
-        Debug.Log("passenger" + passenger_type);
+        Debug.Log("Passenger Status : " + passenger_status);
     }
-    public void ShowTicket()
+    public void AcceptButton()
     {
-        ticket_image.gameObject.SetActive(true);
-        ticket_image.sprite = ticket_sprite[ticket_type];
-    }
-    public void AllowButton()
-    {
-        ticket_image.gameObject.SetActive(false);
-        ticket_check_button.SetActive(false);
-        options.SetActive(false);
+        dilema_options.SetActive(false);
 
-        StartCoroutine(AllowButtonLoading());
+        StartCoroutine(AcceptButtonLoading());
     }
-    private IEnumerator AllowButtonLoading()
+    private IEnumerator AcceptButtonLoading()
     {
         yield return new WaitForSeconds(0.5f);
 
-        if (ticket_type == passenger_type)
+        if (passenger_status == "rich")
         {
-            StartConfusedDialogue("Correct");
+            StartDilemaDialogue("Accept");
         }
-        else
+        else if(passenger_status == "student")
         {
-            StartConfusedDialogue("Wrong");
+            StartDilemaDialogue("Accept");
         }
     }
     public void DenyButton()
     {
-        ticket_image.gameObject.SetActive(false);
-        ticket_check_button.SetActive(false);
-        options.SetActive(false);
+        dilema_options.SetActive(false);
 
         StartCoroutine(DenyButtonLoading());
     }
@@ -216,20 +200,18 @@ public class ConfusedPassangerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        if (ticket_type != passenger_type)
+        if (passenger_status == "rich")
         {
-            StartConfusedDialogue("Correct");
+            StartDilemaDialogue("Deny");
         }
-        else
+        else if(passenger_status == "student")
         {
-            StartConfusedDialogue("Wrong");
+            StartDilemaDialogue("Deny");
         }
     }
     public void DetainButton()
     {
-        ticket_image.gameObject.SetActive(false);
-        ticket_check_button.SetActive(false);
-        options.SetActive(false);
+        dilema_options.SetActive(false);
 
         StartCoroutine(DetainButtonLoading());
     }
@@ -237,6 +219,6 @@ public class ConfusedPassangerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        StartConfusedDialogue("Detain");
+        StartDilemaDialogue("Detain");
     }
 }

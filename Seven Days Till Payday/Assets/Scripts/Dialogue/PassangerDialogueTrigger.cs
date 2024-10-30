@@ -11,10 +11,12 @@ public class PassangerDialogueTrigger : MonoBehaviour
     private bool CanTriggerDialogue = false;
     private ConfusedPassangerUI confused_passenger_dialogue;
     private PriorityPassengerUI priority_passenger_dialogue;
+    private DilemaPassengerUI dilema_passenger_dialogue;
 
     // Passenger References
     private ConfusedPassanger confused_passenger;
     private PriorityPassenger priority_passenger;
+    private DilemaPassenger dilema_passenger;
     private void Start()
     {
         confused_passenger_dialogue = FindAnyObjectByType<ConfusedPassangerUI>();
@@ -22,6 +24,9 @@ public class PassangerDialogueTrigger : MonoBehaviour
 
         priority_passenger_dialogue = FindAnyObjectByType<PriorityPassengerUI>();
         priority_passenger = GetComponent<PriorityPassenger>();
+
+        dilema_passenger_dialogue = FindAnyObjectByType<DilemaPassengerUI>();
+        dilema_passenger = GetComponent<DilemaPassenger>();
     }
     private void Update()
     {
@@ -37,6 +42,13 @@ public class PassangerDialogueTrigger : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !priority_passenger_dialogue.dialoguebox_on)
             {
                 priority_passenger_dialogue.StartDialogue(dialogue, priority_passenger);
+            }
+        }
+        if(dilema_passenger != null)
+        {
+            if (Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !dilema_passenger_dialogue.dialoguebox_on)
+            {
+                dilema_passenger_dialogue.StartDialogue(dialogue, dilema_passenger);
             }
         }
     }

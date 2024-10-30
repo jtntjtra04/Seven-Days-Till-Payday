@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speed;
     private float move_input;
     private bool can_walk;
+    public bool is_moving = false;
 
     // References
     private Rigidbody2D rb;
@@ -32,15 +33,18 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(move_input) > 0.1f)
         {
             rb.velocity = new Vector2(move_input * speed, rb.velocity.y);
+            is_moving = true;
         }
         else
         {
             rb.velocity = new Vector2(0, rb.velocity.y);
+            is_moving = false;
         }
     }
     private void StopPlayer()
     {
         rb.velocity = Vector2.zero;
+        is_moving = false;
     }
     public void DisableMovement()
     {

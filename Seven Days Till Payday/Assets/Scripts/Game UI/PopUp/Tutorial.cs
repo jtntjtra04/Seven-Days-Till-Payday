@@ -83,7 +83,7 @@ public class Tutorial : MonoBehaviour
     }
     private IEnumerator ShowTrainingDialogue()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         int curr_day = time_system.day;
 
         if(curr_day > 0 && curr_day <= training_dialogues.Count)

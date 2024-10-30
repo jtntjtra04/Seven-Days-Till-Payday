@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - OldPassenger
+  - YoungPassenger
+  - Dirt
+  - RichPassenger
+  - StudentPassenger
   layers:
   - Default
   - TransparentFX
