@@ -8,12 +8,8 @@ public class ConfusedPassanger : MonoBehaviour
     private int ticket_type;
     private int passenger_type;
 
-    // References
-    private PlayerMovement player_movement;
-
     private void Start()
     {
-        player_movement = FindAnyObjectByType<PlayerMovement>();
         ticket_type = Random.Range(0, 2);
         Debug.Log("Ticket Type : " + ticket_type);
         GetPassengerPosition();

@@ -33,16 +33,19 @@ public class DialogueManager : MonoBehaviour
     {
         if ((Input.GetMouseButtonUp(0) || Input.GetKeyDown(KeyCode.Space)) && dialoguebox_on)
         {
-            if (!dialogue_on)
+            if (dialogue_on)
+            {
+                text_speed = 0f;
+            }
+            else
             {
                 NextDialogue();
-                return;
             }
-            text_speed = 0f;
         }
     }
     public void StartDialogue(Dialogue dialogue)
     {
+        Debug.Log("Start speed: " + text_speed);
         dialogue_box.SetActive(true);
         dialoguebox_on = true;
         player_movement.DisableMovement();
@@ -60,10 +63,13 @@ public class DialogueManager : MonoBehaviour
         {
             lines.Enqueue(line);
         }
+
+        text_speed = 0.02f;
         NextDialogue();
     }
     public void NextDialogue()
     {
+        Debug.Log("Next speed: " + text_speed);
         text_speed = 0.02f;
         if (lines.Count == 0)
         {
@@ -80,6 +86,7 @@ public class DialogueManager : MonoBehaviour
     }
     private IEnumerator TypeLines(string sentence)
     {
+        Debug.Log("Type speed : " + text_speed);
         dialogue_text.text = "";
         foreach (char letter in sentence.ToCharArray())
         {

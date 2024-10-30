@@ -78,11 +78,12 @@ public class Tutorial : MonoBehaviour
     public void CloseTutorial()
     {
         tutorial_panel.SetActive(false);
-        player_movement.EnableMovement();
-        ShowTrainingDialogue();
+        //player_movement.EnableMovement();
+        StartCoroutine(ShowTrainingDialogue());
     }
-    private void ShowTrainingDialogue()
+    private IEnumerator ShowTrainingDialogue()
     {
+        yield return new WaitForSeconds(1f);
         int curr_day = time_system.day;
 
         if(curr_day > 0 && curr_day <= training_dialogues.Count)

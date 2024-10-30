@@ -9,20 +9,35 @@ public class PassangerDialogueTrigger : MonoBehaviour
 
     // Dialogue Trigger
     private bool CanTriggerDialogue = false;
-    private ConfusedPassangerUI passanger_dialogue;
+    private ConfusedPassangerUI confused_passenger_dialogue;
+    private PriorityPassengerUI priority_passenger_dialogue;
 
-    // References
+    // Passenger References
     private ConfusedPassanger confused_passenger;
+    private PriorityPassenger priority_passenger;
     private void Start()
     {
-        passanger_dialogue = FindAnyObjectByType<ConfusedPassangerUI>();
+        confused_passenger_dialogue = FindAnyObjectByType<ConfusedPassangerUI>();
         confused_passenger = GetComponent<ConfusedPassanger>();
+
+        priority_passenger_dialogue = FindAnyObjectByType<PriorityPassengerUI>();
+        priority_passenger = GetComponent<PriorityPassenger>();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && passanger_dialogue.dialoguebox_on == false)
+        if(confused_passenger != null)
         {
-            passanger_dialogue.StartDialogue(dialogue, confused_passenger);
+            if (Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !confused_passenger_dialogue.dialoguebox_on)
+            {
+                confused_passenger_dialogue.StartDialogue(dialogue, confused_passenger);
+            }
+        }
+        if(priority_passenger != null)
+        {
+            if (Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !priority_passenger_dialogue.dialoguebox_on)
+            {
+                priority_passenger_dialogue.StartDialogue(dialogue, priority_passenger);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

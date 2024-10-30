@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class ConfusedPassangerUI : MonoBehaviour
+public class PriorityPassengerUI : MonoBehaviour
 {
     // Queue
     private Queue<string> lines;
@@ -20,25 +19,21 @@ public class ConfusedPassangerUI : MonoBehaviour
     private bool dialogue_on = false;
     public bool dialoguebox_on = false;
 
-    // Check Ticket Minigame
-    public GameObject ticket_check_button;
-    public GameObject options;
-    public Image ticket_image;
-    public Sprite[] ticket_sprite;
-    private int ticket_type;
-    private int passenger_type;
-    private bool ticket_checked = false;
+    // Priority Passenger Dialogue Data
+    private PriorityPassengerDialogue priority_dialogue_data;
 
-    // Judgement Dialogue
-    public ConfusedPassengerDialogue confused_dialogue_data;
+    // Priority Passenger Minigame
+    public GameObject priority_options;
+    private string passenger_class;
+    private bool problem_solved = false;
 
     // References
-    private ConfusedPassanger curr_passenger;
+    private PriorityPassenger curr_passenger;
     public PlayerMovement player_movement;
 
     private void Start()
     {
-        ticket_checked = false;
+        problem_solved = false;
         lines = new Queue<string>();
         names = new Queue<string>();
     }
@@ -51,10 +46,13 @@ public class ConfusedPassangerUI : MonoBehaviour
                 NextDialogue();
                 return;
             }
-            text_speed = 0f;
+            if (dialogue_on)
+            {
+                text_speed = 0f;
+            }
         }
     }
-    public void StartDialogue(Dialogue dialogue, ConfusedPassanger passenger)
+    public void StartDialogue(Dialogue dialogue, PriorityPassenger passenger)
     {
         curr_passenger = passenger;
 
@@ -77,7 +75,7 @@ public class ConfusedPassangerUI : MonoBehaviour
         }
         NextDialogue();
     }
-    private void StartConfusedDialogue(string decision)
+    private void StartPriorityDialogue(string decision)
     {
         dialogue_box.SetActive(true);
         dialoguebox_on = true;
@@ -88,35 +86,35 @@ public class ConfusedPassangerUI : MonoBehaviour
         switch (decision)
         {
             case "Correct":
-                foreach (string name in confused_dialogue_data.correct_ticket_name)
+                foreach (string name in priority_dialogue_data.correct_name)
                 {
                     names.Enqueue(name);
                 }
-                foreach (string line in confused_dialogue_data.correct_ticket_line)
+                foreach (string line in priority_dialogue_data.correct_line)
                 {
                     lines.Enqueue(line);
                 }
-            break;
+                break;
             case "Wrong":
-                foreach (string name in confused_dialogue_data.wrong_ticket_name)
+                foreach (string name in priority_dialogue_data.wrong_name)
                 {
                     names.Enqueue(name);
                 }
-                foreach (string line in confused_dialogue_data.wrong_ticket_line)
+                foreach (string line in priority_dialogue_data.wrong_line)
                 {
                     lines.Enqueue(line);
                 }
-            break;
+                break;
             case "Detain":
-                foreach (string name in confused_dialogue_data.detained_name)
+                foreach (string name in priority_dialogue_data.detain_name)
                 {
                     names.Enqueue(name);
                 }
-                foreach (string line in confused_dialogue_data.detained_line)
+                foreach (string line in priority_dialogue_data.detain_line)
                 {
                     lines.Enqueue(line);
                 }
-            break;
+                break;
         }
         NextDialogue();
     }
@@ -153,67 +151,75 @@ public class ConfusedPassangerUI : MonoBehaviour
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
-        if(curr_passenger != null && !ticket_checked)
+        if (curr_passenger != null && !problem_solved)
         {
-            ShowTicketCheckButton();
+            ShowOptions();
         }
-        else if(curr_passenger != null && ticket_checked)
+        else if (curr_passenger != null && problem_solved)
         {
-            ticket_checked = false;
+            problem_solved = false;
             Destroy(curr_passenger.gameObject);
         }
     }
-    public void ShowTicketCheckButton()
+    private void ShowOptions()
     {
-        ticket_check_button.SetActive(true);
-        options.SetActive(true);
+        priority_options.SetActive(true);
         player_movement.DisableMovement();
-        ticket_checked = true;
-    }
-    public void ShowTicket()
-    {
-        ticket_type = curr_passenger.GetTicketType();
-        passenger_type = curr_passenger.GetPassengerType();
-        
-        ticket_image.gameObject.SetActive(true);
-        ticket_image.sprite = ticket_sprite[ticket_type];
-    }
-    public void AllowButton()
-    {
-        ticket_image.gameObject.SetActive(false);
-        ticket_check_button.SetActive(false);
-        options.SetActive(false);
+        problem_solved = true;
 
-        if (ticket_type == passenger_type)
+        passenger_class = curr_passenger.GetPassengerClass();
+        priority_dialogue_data = curr_passenger.GetPriorityPassengerDialogue();
+
+        Debug.Log("Passenger Class : " + passenger_class);
+    }
+    public void AllowSitButton()
+    {
+        priority_options.SetActive(false);
+
+        StartCoroutine(AllowButtonLoading());
+    }
+    private IEnumerator AllowButtonLoading()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (passenger_class == "old")
         {
-            StartConfusedDialogue("Correct");
+            StartPriorityDialogue("Correct");
         }
         else
         {
-            StartConfusedDialogue("Wrong");
+            StartPriorityDialogue("Wrong");
         }
     }
-    public void DenyButton()
+    public void DenySitButton()
     {
-        ticket_image.gameObject.SetActive(false);
-        ticket_check_button.SetActive(false);
-        options.SetActive(false);
+        priority_options.SetActive(false);
 
-        if (ticket_type != passenger_type)
+        StartCoroutine(DenyButtonLoading());
+    }
+    private IEnumerator DenyButtonLoading()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (passenger_class == "young")
         {
-            StartConfusedDialogue("Correct");
+            StartPriorityDialogue("Correct");
         }
         else
         {
-            StartConfusedDialogue("Wrong");
+            StartPriorityDialogue("Wrong");
         }
     }
     public void DetainButton()
     {
-        ticket_image.gameObject.SetActive(false);
-        ticket_check_button.SetActive(false);
-        options.SetActive(false);
+        priority_options.SetActive(false);
 
-        StartConfusedDialogue("Detain");
+        StartCoroutine(DetainButtonLoading());
+    }
+    private IEnumerator DetainButtonLoading()
+    {
+        yield return new WaitForSeconds(1f);
+
+        StartPriorityDialogue("Detain");
     }
 }

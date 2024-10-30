@@ -11,9 +11,11 @@ GameObject:
   - component: {fileID: 8117004597666147104}
   - component: {fileID: 9216864525977201976}
   - component: {fileID: 6205573402330825385}
+  - component: {fileID: 7214890754759099115}
+  - component: {fileID: 8674938987900507493}
   m_Layer: 0
   m_Name: PriorityPassenger
-  m_TagString: Untagged
+  m_TagString: OldPassenger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,3 +126,47 @@ CapsuleCollider2D:
   m_Offset: {x: 0.01900673, y: -0.57652307}
   m_Size: {x: 1.3572617, y: 1.6486893}
   m_Direction: 0
+--- !u!114 &7214890754759099115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7067031084595864765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78ec2ffbbc06ab41894d2a918badb1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priority_dialogue_data:
+    correct_name:
+    - Old Man
+    correct_line:
+    - Thank you very much
+    wrong_name:
+    - Old Man
+    wrong_line:
+    - The service here is so bad and cruel
+    detain_name:
+    - Old Man
+    detain_line:
+    - Hey, what is this? You're so evil, remember karma you know?
+--- !u!114 &8674938987900507493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7067031084595864765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d33869c1646717449ba58222639b7c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogue:
+    names:
+    - Old Man
+    - Player
+    lines:
+    - Hey, I'm hard to standup because my legs hurt. Can I sit in priority seat?
+    - (looks like this man is so old)
