@@ -1,15 +1,10 @@
 fileFormatVersion: 2
-guid: 7b40e49a232548a38c895843d08ff3b9
-AssetOrigin:
-  serializedVersion: 1
-  productId: 182650
-  packageName: 2D Character - Astronaut
-  packageVersion: 2.0
-  assetPath: Assets/COPY SPRIGHT/Comic Battle Royale/2D Character - Astronaut/Variant
-    E/Sprites/Character/sword_attack/up/03.png
-  uploadId: 624117
+guid: ac678006c00930c478f9f32e389fd6ab
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -2301705417451041937
+    second: down_yellow_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -101,39 +96,26 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Server
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 03_0
+      name: down_yellow_0
       rect:
         serializedVersion: 2
-        x: 116
-        y: 34
-        width: 127
-        height: 182
+        x: 31
+        y: 0
+        width: 452
+        height: 512
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d4c1748f8021444499f1c01b808aef0c
-      internalID: 1436417644
+      spriteID: f6b0d372e13be00e0800000000000000
+      internalID: -2301705417451041937
       vertices: []
       indices: 
       edges: []
@@ -141,7 +123,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -149,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      03_0: 1436417644
+      down_yellow_0: -2301705417451041937
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

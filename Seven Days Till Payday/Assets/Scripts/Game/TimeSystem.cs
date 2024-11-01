@@ -15,7 +15,7 @@ public class TimeSystem : MonoBehaviour
 
     private void Start()
     {
-        day = 6;
+        day = 5;
 
         if (tutorial != null)
         {
