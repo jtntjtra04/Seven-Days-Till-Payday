@@ -15,6 +15,18 @@ public class Tutorial : MonoBehaviour
     // Dialogue
     public List<Dialogue> training_dialogues;
 
+    // Trains
+    [Header("Trains")]
+    public GameObject metro_train;
+    public GameObject commuter_train;
+    public GameObject highspeed_train;
+
+    // Train Arrive Points
+    [Header("Train Arrive Points")]
+    public Transform metro_arrive_point;
+    public Transform commuter_arrive_point;
+    public Transform highspeed_arrive_point;
+
     // Day 7 Tutorial
     [Header("Day 7 Tutorial")]
     public GameObject confused_passanger;
@@ -96,6 +108,21 @@ public class Tutorial : MonoBehaviour
     public void SetAlreadyTutorialFalse()
     {
         already_tutor = false;
+    }
+    public void SpawnTutorialTrain(int day)
+    {
+        if (day == 7 || day == 6)
+        {
+            Instantiate(metro_train, metro_arrive_point);
+        }
+        else if (day == 5 || day == 4)
+        {
+            Instantiate(commuter_train, commuter_arrive_point);
+        }
+        else if (day == 3)
+        {
+            Instantiate(highspeed_train, highspeed_arrive_point);
+        }
     }
     public void SpawnTutorialPassanger(int day)
     {

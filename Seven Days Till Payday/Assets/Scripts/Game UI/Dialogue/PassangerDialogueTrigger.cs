@@ -14,6 +14,9 @@ public class PassangerDialogueTrigger : MonoBehaviour
     private DilemaPassengerUI dilema_passenger_dialogue;
     private DisabilityPassengerUI disability_passenger_dialogue;
     private DrunkPassengerUI drunk_passenger_dialogue;
+    private ErrorPassengerUI error_passenger_dialogue;
+    private ForeignPassengerUI foreign_passenger_dialogue;
+    private BagPassengerUI bag_passenger_dialogue;
 
     // Passenger References
     private ConfusedPassanger confused_passenger;
@@ -21,6 +24,9 @@ public class PassangerDialogueTrigger : MonoBehaviour
     private DilemaPassenger dilema_passenger;
     private DisabilityPassenger disability_passenger;
     private DrunkPassenger drunk_passenger;
+    private ErrorPassenger error_passenger;
+    private ForeignPassenger foreign_passenger;
+    private BagPassenger bag_passenger;
     private void Start()
     {
         confused_passenger_dialogue = FindAnyObjectByType<ConfusedPassangerUI>();
@@ -37,6 +43,15 @@ public class PassangerDialogueTrigger : MonoBehaviour
 
         drunk_passenger_dialogue = FindAnyObjectByType<DrunkPassengerUI>();
         drunk_passenger = GetComponent<DrunkPassenger>();
+
+        error_passenger_dialogue = FindAnyObjectByType<ErrorPassengerUI>();
+        error_passenger = GetComponent<ErrorPassenger>();
+
+        foreign_passenger_dialogue = FindAnyObjectByType<ForeignPassengerUI>();
+        foreign_passenger = GetComponent<ForeignPassenger>();
+
+        bag_passenger_dialogue = FindAnyObjectByType<BagPassengerUI>();
+        bag_passenger = GetComponent<BagPassenger>();
     }
     private void Update()
     {
@@ -73,6 +88,29 @@ public class PassangerDialogueTrigger : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !drunk_passenger_dialogue.dialoguebox_on)
             {
                 drunk_passenger_dialogue.StartDialogue(dialogue, drunk_passenger);
+            }
+        }
+        if (error_passenger != null)
+        {
+            if (Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !error_passenger_dialogue.dialoguebox_on)
+            {
+                error_passenger_dialogue.StartDialogue(dialogue, error_passenger);
+            }
+        }
+        if (foreign_passenger != null)
+        {
+            if(Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !foreign_passenger_dialogue.dialoguebox_on)
+            {
+                string foreign_name = "Tourist";
+                string foreign_line = foreign_passenger.GenerateRandomSentences(10, 3, 8);
+                foreign_passenger_dialogue.StartDialogue(foreign_name, foreign_line, foreign_passenger);
+            }
+        }
+        if (bag_passenger != null)
+        {
+            if(Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !bag_passenger_dialogue.dialoguebox_on)
+            {
+                bag_passenger_dialogue.StartDialogue(dialogue, bag_passenger);
             }
         }
     }

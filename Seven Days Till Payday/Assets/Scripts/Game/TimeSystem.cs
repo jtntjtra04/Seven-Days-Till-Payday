@@ -15,10 +15,11 @@ public class TimeSystem : MonoBehaviour
 
     private void Start()
     {
-        day = 5;
+        day = 7;
 
         if (tutorial != null)
         {
+            tutorial.SpawnTutorialTrain(day);
             tutorial.SpawnTutorialPassanger(day);
         }
     }
@@ -29,6 +30,7 @@ public class TimeSystem : MonoBehaviour
             day--;
             if (day > 2)
             {
+                tutorial.SpawnTutorialTrain(day);
                 tutorial.SpawnTutorialPassanger(day);
             }
         }

@@ -9,6 +9,9 @@ TagManager:
   - Dirt
   - RichPassenger
   - StudentPassenger
+  - MetroTrain
+  - CommuterTrain
+  - HighSpeedTrain
   layers:
   - Default
   - TransparentFX
