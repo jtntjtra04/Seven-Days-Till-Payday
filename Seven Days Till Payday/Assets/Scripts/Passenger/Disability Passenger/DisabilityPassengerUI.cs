@@ -29,6 +29,8 @@ public class DisabilityPassengerUI : MonoBehaviour
     // References
     private DisabilityPassenger curr_passenger;
     public PlayerMovement player_movement;
+    public Tutorial tutorial;
+    public GameController game_controller;
 
     private void Start()
     {
@@ -131,6 +133,14 @@ public class DisabilityPassengerUI : MonoBehaviour
         else if (curr_passenger != null && passenger_solved)
         {
             passenger_solved = false;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                game_controller.DecreasePassengerCount("CommuterTrain");
+            }
             Destroy(curr_passenger.gameObject);
         }
     }
@@ -144,6 +154,7 @@ public class DisabilityPassengerUI : MonoBehaviour
     }
     public void OnCompleteMinigame()
     {
+        AudioManager.instance.PlaySFX("Correct");
         deploy_ramp.SetActive(false);
 
         StartCoroutine(EndMinigameLoading());
@@ -152,6 +163,17 @@ public class DisabilityPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.AddReputation(75);
         StartDisabilityDialogue();
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        deploy_ramp.SetActive(false);
+
+        dialogue_on = false;
+        dialoguebox_on = false;
     }
 }

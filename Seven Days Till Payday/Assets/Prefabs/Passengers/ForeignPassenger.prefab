@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2759460693463336461}
   - component: {fileID: 3458451025320318289}
   - component: {fileID: -8564659152639547932}
+  - component: {fileID: 4287717680083565154}
   m_Layer: 0
   m_Name: ForeignPassenger
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.1013148, y: 1.1013148, z: 1.1013148}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 1096609179
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1656450011, guid: 5244971dc9af41faa83e78ad936a6ff3, type: 3}
+  m_Sprite: {fileID: 5219963371128598275, guid: 5d7a2a8f8b30d4448840d36679c0fe9b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,8 +124,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.27, y: 1.67}
+  m_Offset: {x: 0, y: 0.235}
+  m_Size: {x: 0.3, y: 0.47}
   m_Direction: 0
 --- !u!114 &3458451025320318289
 MonoBehaviour:
@@ -158,57 +159,78 @@ MonoBehaviour:
   foreign_dialogue_data:
     allow_train_name:
     - Player
-    - Tourist
+    - NPC
     allow_train_line:
-    - Yes sir, this is indeed the High-Speed train for long distance travels. You
-      can board it right away.
-    - ' I see, thanks for the assistance.'
+    - Yes, this is indeed the High-Speed train for long distance travels. You can
+      board it right away.
+    - I see, thanks for the assistance.
     allow_fruit_name:
     - Player
-    - Tourist
+    - NPC
     allow_fruit_line:
-    - Yes sir, you can bring durian in the train
-    - Thankyou very much
+    - Yes, you can bring it on the train no problem.
+    - I see, thanks for the assistance.
     allow_sus_name:
     - Player
-    - Tourist
+    - NPC
     allow_sus_line:
-    - Yes, yes. Let me buy it
-    - Woah, alright. I didn't expect that for you
+    - "You know what i like, I\u2019ll take 5."
+    - Good to have business with you!
     deny_train_name:
     - Player
-    - Tourist
+    - NPC
     deny_train_line:
-    - No, you're not belong here
-    - what a shame
+    - "No, this isn\u2019t your train. You\u2019ll need to head over to another platform."
+    - "Thanks for telling me, I\u2019ll head on over now."
     deny_fruit_name:
     - Player
-    - Tourist
+    - NPC
     deny_fruit_line:
-    - No, you can't bring that here
-    - I see, okay understand
+    - "I\u2019m afraid not, the smell of it will disturb the other passengers."
+    - OK, thanks for telling me. Sorry for the inconvenience.
     deny_sus_name:
     - Player
-    - Tourist
+    - NPC
     deny_sus_line:
-    - No, I don't want to buy something sus
-    - What a coward, I'll give you something good, here accept it
+    - "Not in my working hours, I\u2019ll get it later."
+    - "Don\u2019t worry, I\u2019ll save some for you."
     detain_train_name:
     - Player
-    - Tourist
+    - NPC
     detain_train_line:
-    - You're under arrest
-    - What the f? are you insane, what is my fault. Dumb officer
+    - "You\u2019re causing trouble. I\u2019m detaining you."
+    - Am i not allowed to ask questions here?!
     detain_fruit_name:
     - Player
-    - Tourist
+    - NPC
     detain_fruit_line:
-    - You're under arrest
-    - Hey, I just ask you to bring a fruit. What a horrible service. Don't your parents
-      teach you etique?
+    - "You\u2019re causing trouble. I\u2019m detaining you."
+    - Am i not allowed to ask questions here?!
     detain_sus_name:
     - Player
-    - Tourist
+    - NPC
     detain_sus_line:
-    - You're under arrest
-    - Hey, why are you so smart. Good job officer this time
+    - "You\u2019re causing trouble. I\u2019m detaining you."
+    - "I won\u2019t do it again, please spare me!"
+--- !u!95 &4287717680083565154
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2423522320584121089}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 140c5f615d691254bb943ac013ad4372, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

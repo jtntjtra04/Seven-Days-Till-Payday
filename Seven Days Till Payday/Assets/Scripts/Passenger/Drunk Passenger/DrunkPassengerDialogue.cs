@@ -5,10 +5,15 @@ using UnityEngine;
 [System.Serializable]
 public class DrunkPassengerDialogue
 {
-    [Header("Allow Dialogue")]
-    public string[] allow_name;
+    [Header("First Allow Dialogue")]
+    public string[] first_allow_name;
     [TextArea(3, 10)]
-    public string[] allow_line;
+    public string[] first_allow_line;
+
+    [Header("Second Allow Dialogue")]
+    public string[] second_allow_name;
+    [TextArea(3, 10)]
+    public string[] second_allow_line;
 
     [Header("Safe Deny Dialogue")]
     public string[] safe_deny_name;

@@ -20,11 +20,13 @@ public class GameStarter : MonoBehaviour
     }
     public void StartButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         confirmation_buttons.SetActive(false);
-        game_controller.GoToStation();
+        game_controller.LoadingGame();
     }
     public void CancelButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         confirmation_buttons.SetActive(false);
         player_movement.EnableMovement();
     }

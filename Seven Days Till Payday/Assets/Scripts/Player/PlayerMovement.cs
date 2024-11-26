@@ -22,6 +22,17 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         move_input = Input.GetAxis("Horizontal");
+
+        anim.SetBool("run", move_input != 0);
+
+        if (move_input > 0.01)
+        {
+            transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        }
+        else if (move_input < -0.01)
+        {
+            transform.localScale = new Vector3(-3.5f, 3.5f, 3.5f);
+        }
     }
     private void FixedUpdate()
     {

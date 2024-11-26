@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5420975042448956199}
   - component: {fileID: -621483500749700134}
   - component: {fileID: 3017353899225720693}
+  - component: {fileID: 7443984492598077942}
   m_Layer: 0
   m_Name: DisabilityPassenger
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 1096609179
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1267923550, guid: f23d674bbb264ee7b7d0a0e68cd23f35, type: 3}
+  m_Sprite: {fileID: -6011734291817889048, guid: 0d60a03f4eb45894a9a6437e7b4efc56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,8 +124,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.3, y: 1.38}
+  m_Offset: {x: 0, y: 0.23}
+  m_Size: {x: 0.35, y: 0.46}
   m_Direction: 0
 --- !u!114 &-621483500749700134
 MonoBehaviour:
@@ -140,11 +141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     names:
-    - Disability Passenger
-    - Disability Passenger
+    - NPC
     lines:
-    - Hey, youngman. Can you help me enter the train?
-    - My legs don't work well
+    - Excuse me, I need help boarding the train.
 --- !u!114 &3017353899225720693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,6 +158,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   disability_dialogue_data:
     succeed_name:
-    - Disability Passenger
+    - Player
+    - NPC
     succeed_line:
-    - Thankyou so much, bless you
+    - You can go on ahead.
+    - Thank you for your help!
+--- !u!95 &7443984492598077942
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926447092738050928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 44bbbbdbe95b2d14299015abd4828293, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

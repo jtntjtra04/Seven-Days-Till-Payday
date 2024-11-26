@@ -36,8 +36,8 @@ public class ForeignPassengerUI : MonoBehaviour
     private bool problem_solved = false;
 
     // Slider Mechanic System
-    private float correct_min_range; // Minimum correct slider range
-    private float correct_max_range; // Maximum correct slider range
+    private int correct_min_range; // Minimum correct slider range
+    private int correct_max_range; // Maximum correct slider range
     private string random_line_11_40;
     private string random_line_41_70;
     private string random_line_71_100;
@@ -45,6 +45,8 @@ public class ForeignPassengerUI : MonoBehaviour
     // References
     private ForeignPassenger curr_passenger;
     public PlayerMovement player_movement;
+    public Tutorial tutorial;
+    public GameController game_controller;
 
     private void Start()
     {
@@ -232,6 +234,14 @@ public class ForeignPassengerUI : MonoBehaviour
         {
             problem_solved = false;
             translator_slider.value = 0f;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                game_controller.DecreasePassengerCount("HighSpeedTrain");
+            }
             Destroy(curr_passenger.gameObject);
         }
     }
@@ -258,8 +268,9 @@ public class ForeignPassengerUI : MonoBehaviour
                 break;
         }
         // Randomize the range slider value of the correct line
-        correct_min_range = Random.Range(1f, 10f) * 10f + 1f;
-        correct_max_range = correct_min_range + 9f;
+        correct_min_range = Random.Range(1, 91);
+        correct_max_range = correct_min_range + 9;
+        Debug.Log("Min range = " + correct_min_range + " Max range = " + correct_max_range);
 
         // Generate random text for every range 1-30, 31-60, 61-90
         random_line_11_40 = curr_passenger.GenerateRandomSentences(5, 3, 8);
@@ -308,6 +319,7 @@ public class ForeignPassengerUI : MonoBehaviour
     }
     public void AllowButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         translator_button.SetActive(false);
         foreign_options.SetActive(false);
 
@@ -319,19 +331,26 @@ public class ForeignPassengerUI : MonoBehaviour
 
         if(question_type == 1)
         {
+            MoneyAndReputation.Instance.AddReputation(75);
+            AudioManager.instance.PlaySFX("Correct");
             StartForeignDialogue("AllowTrain");
         }
         else if(question_type == 2)
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartForeignDialogue("AllowFruit");
         }
         else if(question_type == 3)
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartForeignDialogue("AllowSus");
         }
     }
     public void DenyButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         translator_button.SetActive(false);
         foreign_options.SetActive(false);
 
@@ -343,14 +362,20 @@ public class ForeignPassengerUI : MonoBehaviour
 
         if (question_type == 1)
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartForeignDialogue("DenyTrain");
         }
         else if (question_type == 2)
         {
+            MoneyAndReputation.Instance.AddReputation(75);
+            AudioManager.instance.PlaySFX("Correct");
             StartForeignDialogue("DenyFruit");
         }
         else if (question_type == 3)
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartForeignDialogue("DenySus");
         }
     }
@@ -367,15 +392,34 @@ public class ForeignPassengerUI : MonoBehaviour
 
         if (question_type == 1)
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartForeignDialogue("DetainTrain");
         }
         else if (question_type == 2)
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartForeignDialogue("DetainFruit");
         }
         else if (question_type == 3)
         {
+            MoneyAndReputation.Instance.AddReputation(75);
+            AudioManager.instance.PlaySFX("Correct");
             StartForeignDialogue("DetainSus");
         }
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        translator_button.SetActive(false);
+        translator_panel.SetActive(false);
+        foreign_options.SetActive(false);
+
+        dialogue_on = false;
+        dialoguebox_on = false;
+        translator_slider.value = 0f;
     }
 }

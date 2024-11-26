@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5420975042448956199}
   - component: {fileID: 5019534436008439040}
   - component: {fileID: -621483500749700134}
+  - component: {fileID: 1443495976520028701}
   m_Layer: 0
   m_Name: StudentPassenger
   m_TagString: StudentPassenger
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.5, y: 4.5, z: 4.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 1096609179
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1631713001, guid: 2b95fcd3920b48e893365f50b6152e2c, type: 3}
+  m_Sprite: {fileID: 3374635795758649915, guid: a1efa5709cfb53f4896d2c7e3d3367ad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,8 +124,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.33, y: 1.76}
+  m_Offset: {x: 0, y: 0.17500001}
+  m_Size: {x: 0.15000002, y: 0.35000002}
   m_Direction: 0
 --- !u!114 &5019534436008439040
 MonoBehaviour:
@@ -141,22 +142,22 @@ MonoBehaviour:
   dilema_dialogue_data:
     accept_name:
     - Player
-    - Student Passenger
+    - NPC
     accept_line:
-    - Sure, I will buy you a ticket
-    - Thankyou very much, you're my hero
+    - "Here\u2019s a ticket, get home safe."
+    - "Thank you so much! I\u2019ll never forget this!"
     deny_name:
     - Player
-    - Student Passenger
+    - NPC
     deny_line:
-    - no
-    - I see, what a disappoint
+    - "Sorry, I can\u2019t help you right now."
+    - "It\u2019s ok\u2026 I understand\u2026"
     detain_name:
-    - player
-    - Student Passenger
+    - Player
+    - NPC
     detain_line:
-    - You're arrested
-    - Are you serious right now. i'm just a student
+    - "You\u2019re causing trouble. I\u2019m detaining you."
+    - "Wait, sorry sir! I\u2019ll just walk home, please let me go!"
 --- !u!114 &-621483500749700134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,8 +172,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     names:
-    - Student Passenger
-    - Student Passenger
+    - NPC
     lines:
-    - Excuse me, officer, I forgot my ticket
-    - can you buy me a ticket? just one?
+    - "Excuse me sir, I don\u2019t have enough money for a ticket\u2026 Can you help
+      me out?"
+--- !u!95 &1443495976520028701
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926447092738050928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cc7f187a913e42446950c51ee6f2d3ce, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

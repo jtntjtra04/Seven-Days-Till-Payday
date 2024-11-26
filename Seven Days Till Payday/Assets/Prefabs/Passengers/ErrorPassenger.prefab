@@ -30,8 +30,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.4, y: 4.4, z: 4.4}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 1096609179
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1632648714, guid: e67f34862289411cb0c310e1419c8b05, type: 3}
+  m_Sprite: {fileID: -7438820906885865212, guid: 899c622083efd4245a709e7aaf83e86b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,8 +123,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.33, y: 1.76}
+  m_Offset: {x: 0, y: 0.23}
+  m_Size: {x: 0.22, y: 0.46}
   m_Direction: 0
 --- !u!114 &-621483500749700134
 MonoBehaviour:
@@ -140,11 +140,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     names:
-    - ???
-    - ???
+    - NPC
     lines:
-    - Hello.....
-    - "How\u2026.can..I help\u2026you?"
+    - "Hello\u2026 Can i help you with something?"
 --- !u!114 &2846730745256753764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,20 +157,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   error_dialogue_data:
     allow_name:
-    - ???
-    - ???
+    - Player
+    - NPC
     allow_line:
-    - .....
-    - Xi..Xi.....Xi...Xi..Xxi...
+    - Nothing, have a great day.
+    - "Thanks\u2026 you to\u2026"
     deny_name:
-    - ???
-    - ???
+    - Player
+    - NPC
     deny_line:
-    - .....
-    - You....Are....Done.....
+    - "I don\u2019t think you are in the right train. You can move on to another
+      platform."
+    - "Is that so\u2026 Thanks for telling me\u2026"
     detain_name:
-    - ???
-    - ???
+    - Player
+    - NPC
     detain_line:
-    - zzzzz
-    - zzzzzzzzzzz
+    - "You\u2019re an Error. I\u2019m detaining you."
+    - "What\u2026 how did you\u2026"

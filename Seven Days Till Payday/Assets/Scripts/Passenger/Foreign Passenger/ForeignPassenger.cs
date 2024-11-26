@@ -12,6 +12,15 @@ public class ForeignPassenger : MonoBehaviour
 
     private int question_type;
 
+    private void OnDestroy()
+    {
+        ForeignPassengerUI foreignPassengerUI = FindAnyObjectByType<ForeignPassengerUI>();
+        if(foreignPassengerUI != null)
+        {
+            foreignPassengerUI.ClearCurrentMinigame();
+        }
+    }
+
     private void Start()
     {
         question_type = Random.Range(1, 3);

@@ -13,7 +13,7 @@ public class Barrier : MonoBehaviour
         {
             if (barrier != null)
             {
-                Destroy(barrier);
+                barrier.SetActive(false);
             }
         }
     }
@@ -30,5 +30,9 @@ public class Barrier : MonoBehaviour
         {
             tutorial_interact = false;
         }
+    }
+    public void PlaceBarrier()
+    {
+        barrier.SetActive(true);
     }
 }

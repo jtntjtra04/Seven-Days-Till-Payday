@@ -25,12 +25,14 @@ public class PriorityPassengerUI : MonoBehaviour
     // Priority Passenger Minigame
     public GameObject priority_options;
     private string passenger_class;
+    private int passenger_type;
     private bool problem_solved = false;
 
     // References
     private PriorityPassenger curr_passenger;
     public PlayerMovement player_movement;
-
+    public Tutorial tutorial;
+    public GameController game_controller;
     private void Start()
     {
         problem_solved = false;
@@ -84,7 +86,7 @@ public class PriorityPassengerUI : MonoBehaviour
 
         switch (decision)
         {
-            case "Correct":
+            case "Allow":
                 foreach (string name in priority_dialogue_data.correct_name)
                 {
                     names.Enqueue(name);
@@ -94,7 +96,7 @@ public class PriorityPassengerUI : MonoBehaviour
                     lines.Enqueue(line);
                 }
                 break;
-            case "Wrong":
+            case "Deny":
                 foreach (string name in priority_dialogue_data.wrong_name)
                 {
                     names.Enqueue(name);
@@ -157,6 +159,25 @@ public class PriorityPassengerUI : MonoBehaviour
         else if (curr_passenger != null && problem_solved)
         {
             problem_solved = false;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                if (passenger_type == 0)
+                {
+                    game_controller.DecreasePassengerCount("MetroTrain");
+                }
+                else if (passenger_type == 1)
+                {
+                    game_controller.DecreasePassengerCount("CommuterTrain");
+                }
+                else if (passenger_type == 2)
+                {
+                    game_controller.DecreasePassengerCount("HighSpeedTrain");
+                }
+            }
             Destroy(curr_passenger.gameObject);
         }
     }
@@ -168,11 +189,13 @@ public class PriorityPassengerUI : MonoBehaviour
 
         passenger_class = curr_passenger.GetPassengerClass();
         priority_dialogue_data = curr_passenger.GetPriorityPassengerDialogue();
+        passenger_type = curr_passenger.GetPassengerType();
 
         Debug.Log("Passenger Class : " + passenger_class);
     }
     public void AllowSitButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         priority_options.SetActive(false);
 
         StartCoroutine(AllowButtonLoading());
@@ -183,15 +206,20 @@ public class PriorityPassengerUI : MonoBehaviour
 
         if (passenger_class == "old")
         {
-            StartPriorityDialogue("Correct");
+            MoneyAndReputation.Instance.AddReputation(50);
+            AudioManager.instance.PlaySFX("Correct");
+            StartPriorityDialogue("Allow");
         }
         else
         {
-            StartPriorityDialogue("Wrong");
+            MoneyAndReputation.Instance.MinusReputation(25);
+            AudioManager.instance.PlaySFX("Wrong");
+            StartPriorityDialogue("Allow");
         }
     }
     public void DenySitButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         priority_options.SetActive(false);
 
         StartCoroutine(DenyButtonLoading());
@@ -202,15 +230,20 @@ public class PriorityPassengerUI : MonoBehaviour
 
         if (passenger_class == "young")
         {
-            StartPriorityDialogue("Correct");
+            MoneyAndReputation.Instance.AddReputation(50);
+            AudioManager.instance.PlaySFX("Correct");
+            StartPriorityDialogue("Deny");
         }
         else
         {
-            StartPriorityDialogue("Wrong");
+            MoneyAndReputation.Instance.MinusReputation(25);
+            AudioManager.instance.PlaySFX("Wrong");
+            StartPriorityDialogue("Deny");
         }
     }
     public void DetainButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         priority_options.SetActive(false);
 
         StartCoroutine(DetainButtonLoading());
@@ -219,6 +252,18 @@ public class PriorityPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.MinusReputation(25);
+        AudioManager.instance.PlaySFX("Wrong");
         StartPriorityDialogue("Detain");
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        priority_options.SetActive(false);
+
+        dialogue_on = false;
+        dialoguebox_on = false;
     }
 }

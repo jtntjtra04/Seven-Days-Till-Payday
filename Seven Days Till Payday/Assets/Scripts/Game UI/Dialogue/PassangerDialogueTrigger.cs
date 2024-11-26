@@ -17,6 +17,7 @@ public class PassangerDialogueTrigger : MonoBehaviour
     private ErrorPassengerUI error_passenger_dialogue;
     private ForeignPassengerUI foreign_passenger_dialogue;
     private BagPassengerUI bag_passenger_dialogue;
+    private BusinessmanPassengerUI businessman_passenger_dialogue;
 
     // Passenger References
     private ConfusedPassanger confused_passenger;
@@ -27,6 +28,8 @@ public class PassangerDialogueTrigger : MonoBehaviour
     private ErrorPassenger error_passenger;
     private ForeignPassenger foreign_passenger;
     private BagPassenger bag_passenger;
+    private BusinessmanPassenger businessman_passenger;
+
     private void Start()
     {
         confused_passenger_dialogue = FindAnyObjectByType<ConfusedPassangerUI>();
@@ -52,6 +55,9 @@ public class PassangerDialogueTrigger : MonoBehaviour
 
         bag_passenger_dialogue = FindAnyObjectByType<BagPassengerUI>();
         bag_passenger = GetComponent<BagPassenger>();
+
+        businessman_passenger_dialogue = FindAnyObjectByType<BusinessmanPassengerUI>();
+        businessman_passenger = GetComponent<BusinessmanPassenger>();
     }
     private void Update()
     {
@@ -111,6 +117,13 @@ public class PassangerDialogueTrigger : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !bag_passenger_dialogue.dialoguebox_on)
             {
                 bag_passenger_dialogue.StartDialogue(dialogue, bag_passenger);
+            }
+        }
+        if (businessman_passenger != null)
+        {
+            if (Input.GetKeyDown(KeyCode.F) && CanTriggerDialogue && !businessman_passenger_dialogue.dialoguebox_on)
+            {
+                businessman_passenger_dialogue.StartDialogue(dialogue, businessman_passenger);
             }
         }
     }

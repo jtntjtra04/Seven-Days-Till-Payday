@@ -45,7 +45,6 @@ public class DialogueManager : MonoBehaviour
     }
     public void StartDialogue(Dialogue dialogue)
     {
-        Debug.Log("Start speed: " + text_speed);
         dialogue_box.SetActive(true);
         dialoguebox_on = true;
         player_movement.DisableMovement();
@@ -69,7 +68,6 @@ public class DialogueManager : MonoBehaviour
     }
     public void NextDialogue()
     {
-        Debug.Log("Next speed: " + text_speed);
         text_speed = 0.02f;
         if (lines.Count == 0)
         {
@@ -86,7 +84,6 @@ public class DialogueManager : MonoBehaviour
     }
     private IEnumerator TypeLines(string sentence)
     {
-        Debug.Log("Type speed : " + text_speed);
         dialogue_text.text = "";
         foreach (char letter in sentence.ToCharArray())
         {
@@ -97,17 +94,28 @@ public class DialogueManager : MonoBehaviour
     }
     public void EndDialogue()
     {
-        Debug.Log("End dialogue");
         dialogue_box.SetActive(false);
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
         Tutorial tutorial = GetComponent<Tutorial>();
+        TutorialDialogue tutorial_dialogue = GetComponent<TutorialDialogue>();
         if (tutorial != null)
         {
-            if (!tutorial.already_tutor)
+            if (!tutorial.already_tutor && !tutorial_dialogue.game_ending && tutorial.is_training)
             {
                 tutorial.ShowTutorial();
+            }
+            else if(tutorial_dialogue.game_ending)
+            {
+                if (!tutorial.get_converted_money)
+                {
+                    tutorial.ShowResult();
+                }
+                else
+                {
+                    tutorial.EndGame();
+                }
             }
             else
             {
@@ -116,7 +124,7 @@ public class DialogueManager : MonoBehaviour
         }
 
         GameStarter gameStarter = GetComponent<GameStarter>();
-        if (gameStarter != null)
+        if (gameStarter != null && !tutorial.is_training && !tutorial_dialogue.game_ending)
         {
             gameStarter.ShowConfirmation();
         }

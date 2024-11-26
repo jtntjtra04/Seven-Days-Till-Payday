@@ -24,11 +24,14 @@ public class ErrorPassengerUI : MonoBehaviour
 
     // Error Passenger Minigame
     public GameObject error_options;
+    private int passenger_type;
     private bool problem_solved = false;
 
     // References
     private ErrorPassenger curr_passenger;
     public PlayerMovement player_movement;
+    public Tutorial tutorial;
+    public GameController game_controller;
 
     private void Start()
     {
@@ -144,7 +147,6 @@ public class ErrorPassengerUI : MonoBehaviour
     }
     public void EndDialogue()
     {
-        Debug.Log("End dialogue");
         dialogue_box.SetActive(false);
         dialoguebox_on = false;
         player_movement.EnableMovement();
@@ -156,6 +158,25 @@ public class ErrorPassengerUI : MonoBehaviour
         else if (curr_passenger != null && problem_solved)
         {
             problem_solved = false;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                if (passenger_type == 0)
+                {
+                    game_controller.DecreasePassengerCount("MetroTrain");
+                }
+                else if (passenger_type == 1)
+                {
+                    game_controller.DecreasePassengerCount("CommuterTrain");
+                }
+                else if (passenger_type == 2)
+                {
+                    game_controller.DecreasePassengerCount("HighSpeedTrain");
+                }
+            }
             Destroy(curr_passenger.gameObject);
         }
     }
@@ -165,10 +186,12 @@ public class ErrorPassengerUI : MonoBehaviour
         player_movement.DisableMovement();
         problem_solved = true;
 
+        passenger_type = curr_passenger.GetPassengerType();
         error_dialogue_data = curr_passenger.GetErrorPassengerDialogue();
     }
     public void AllowButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         error_options.SetActive(false);
 
         StartCoroutine(AllowDialogueLoading());
@@ -177,10 +200,13 @@ public class ErrorPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.MinusReputation(80);
+        AudioManager.instance.PlaySFX("Wrong");
         StartErrorDialogue("Allow");
     }
     public void DenyButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         error_options.SetActive(false);
 
         StartCoroutine(DenyDialogueLoading());
@@ -189,10 +215,13 @@ public class ErrorPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.MinusReputation(80);
+        AudioManager.instance.PlaySFX("Wrong");
         StartErrorDialogue("Deny");
     }
     public void DetainButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         error_options.SetActive(false);
 
         StartCoroutine(DetainDialogueLoading());
@@ -201,6 +230,18 @@ public class ErrorPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.AddReputation(100);
+        AudioManager.instance.PlaySFX("Correct");
         StartErrorDialogue("Detain");
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        error_options.SetActive(false);
+
+        dialogue_on = false;
+        dialoguebox_on = false;
     }
 }

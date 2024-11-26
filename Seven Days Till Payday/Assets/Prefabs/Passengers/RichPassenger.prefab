@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5420975042448956199}
   - component: {fileID: 5019534436008439040}
   - component: {fileID: -621483500749700134}
+  - component: {fileID: 9142142780104202908}
   m_Layer: 0
   m_Name: RichPassenger
   m_TagString: RichPassenger
@@ -30,8 +31,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4.2, y: 4.2, z: 4.2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 1096609179
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1428377809, guid: f7a43d0adff04480912b4cd17b691ffb, type: 3}
+  m_Sprite: {fileID: -8546395006816564412, guid: 7e582967ff3a9764fba0de19766ec60c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,8 +124,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.33, y: 1.76}
+  m_Offset: {x: 0, y: 0.27499998}
+  m_Size: {x: 0.29999998, y: 0.54999995}
   m_Direction: 0
 --- !u!114 &5019534436008439040
 MonoBehaviour:
@@ -141,18 +142,22 @@ MonoBehaviour:
   dilema_dialogue_data:
     accept_name:
     - Player
+    - NPC
     accept_line:
-    - Accept the money
+    - Of course, go on right ahead.
+    - Finally, someone who gets it. Time is money.
     deny_name:
     - Player
+    - NPC
     deny_line:
-    - no i don't want
+    - "No, I can\u2019t accept your bribe. Please go back and get a ticket."
+    - "Oh come on! You\u2019ll regret this!"
     detain_name:
-    - player
-    - Rich Passenger
+    - Player
+    - NPC
     detain_line:
-    - You're arrested
-    - whatttt
+    - "You\u2019re causing trouble. I\u2019m detaining you."
+    - "You can\u2019t do this to me! I\u2019m going to sue you in court!"
 --- !u!114 &-621483500749700134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,8 +172,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     names:
-    - Rich Passenger
-    - Rich Passenger
+    - NPC
     lines:
-    - hey kid, over here
-    - so i forgot my ticket, here, accept my money and let me enter the train
+    - "Here, take this, and let me on board. I don\u2019t have time to wait and get
+      a ticket."
+--- !u!95 &9142142780104202908
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926447092738050928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a6c0e5982ed93ec4dba9c6855c0fafb8, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

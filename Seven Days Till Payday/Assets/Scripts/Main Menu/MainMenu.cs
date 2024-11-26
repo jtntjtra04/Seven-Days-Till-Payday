@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public Animator transition_anim;
     public void PlayButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         StartCoroutine(StartGameTransition());
     }
     public void SettingsButton()
@@ -17,6 +18,7 @@ public class MainMenu : MonoBehaviour
     }
     public void ExitButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         Application.Quit();
     }
     private IEnumerator StartGameTransition()

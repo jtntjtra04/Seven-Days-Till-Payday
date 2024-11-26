@@ -16,16 +16,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Camera
   - Water
   - UI
   - Metro
   - Commuter
   - Highspeed
-  - 
-  - 
-  - 
-  - 
+  - MetroInterior
+  - CommuterInterior
+  - HighspeedInterior
+  - Apartment
   - 
   - 
   - 

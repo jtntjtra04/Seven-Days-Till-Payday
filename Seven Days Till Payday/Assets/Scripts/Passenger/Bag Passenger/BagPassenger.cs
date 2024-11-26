@@ -6,6 +6,14 @@ public class BagPassenger : MonoBehaviour
 {
     public BagPassengerDialogue bag_dialogue_data;
 
+    private void OnDestroy()
+    {
+        BagPassengerUI bagPassengerUI = FindAnyObjectByType<BagPassengerUI>();
+        if(bagPassengerUI != null)
+        {
+            bagPassengerUI.ClearCurrentMinigame();
+        }
+    }
     public bool IsPassengerDanger()
     {
         float danger_chance = Random.value;

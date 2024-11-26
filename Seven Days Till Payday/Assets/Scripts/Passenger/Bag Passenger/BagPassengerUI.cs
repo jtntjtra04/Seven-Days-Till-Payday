@@ -40,6 +40,8 @@ public class BagPassengerUI : MonoBehaviour
     // References
     private BagPassenger curr_passenger;
     public PlayerMovement player_movement;
+    public Tutorial tutorial;
+    public GameController game_controller;
 
     private void Start()
     {
@@ -177,11 +179,20 @@ public class BagPassengerUI : MonoBehaviour
         else if (curr_passenger != null && problem_solved)
         {
             problem_solved = false;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                game_controller.DecreasePassengerCount("HighSpeedTrain");
+            }
             Destroy(curr_passenger.gameObject);
         }
     }
     private void ShowBag()
     {
+        AudioManager.instance.PlaySFX("Backpack");
         bag_panel.SetActive(true);
         player_movement.DisableMovement();
         problem_solved = true;
@@ -251,6 +262,7 @@ public class BagPassengerUI : MonoBehaviour
     }
     public void AllowButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         CloseBag();
 
         StartCoroutine(AllowButtonLoading());
@@ -261,15 +273,20 @@ public class BagPassengerUI : MonoBehaviour
 
         if (!passenger_danger)
         {
+            MoneyAndReputation.Instance.AddReputation(75);
+            AudioManager.instance.PlaySFX("Correct");
             StartBagDialogue("AllowSafe");
         }
         else
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartBagDialogue("AllowDanger");
         }
     }
     public void DetainButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         CloseBag();
 
         StartCoroutine(DetainButtonLoading());
@@ -280,11 +297,25 @@ public class BagPassengerUI : MonoBehaviour
 
         if (!passenger_danger)
         {
+            MoneyAndReputation.Instance.MinusReputation(40);
+            AudioManager.instance.PlaySFX("Wrong");
             StartBagDialogue("DetainSafe");
         }
         else
         {
+            MoneyAndReputation.Instance.AddReputation(75);
+            AudioManager.instance.PlaySFX("Correct");
             StartBagDialogue("DetainDanger");
         }
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        CloseBag();
+
+        dialogue_on = false;
+        dialoguebox_on = false;
     }
 }

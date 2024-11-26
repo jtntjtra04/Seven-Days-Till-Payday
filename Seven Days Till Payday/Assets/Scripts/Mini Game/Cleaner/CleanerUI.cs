@@ -41,6 +41,7 @@ public class CleanerUI : MonoBehaviour
     {
         if(cleaner_count > 0 && cleaner_instance == null)
         {
+            AudioManager.instance.PlaySFX("Click");
             Vector3 spawn_position = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             spawn_position.z = 0;
             cleaner_instance = Instantiate(cleaner_prefab, spawn_position, Quaternion.identity);
@@ -97,6 +98,7 @@ public class CleanerUI : MonoBehaviour
     {
         if(cleaner_count < 2)
         {
+            AudioManager.instance.PlaySFX("Pickup");
             cleaner_count++;
             UpdateCountText();
         }

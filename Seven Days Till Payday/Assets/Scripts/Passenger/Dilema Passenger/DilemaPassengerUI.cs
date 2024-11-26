@@ -25,11 +25,14 @@ public class DilemaPassengerUI : MonoBehaviour
     // Dilema Passenger Minigame
     public GameObject dilema_options;
     private string passenger_status;
+    private int passenger_type;
     private bool passenger_solved = false;
 
     // References
     private DilemaPassenger curr_passenger;
     public PlayerMovement player_movement;
+    public Tutorial tutorial;
+    public GameController game_controller;
 
     private void Start()
     {
@@ -157,6 +160,25 @@ public class DilemaPassengerUI : MonoBehaviour
         else if (curr_passenger != null && passenger_solved)
         {
             passenger_solved = false;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                if (passenger_type == 0)
+                {
+                    game_controller.DecreasePassengerCount("MetroTrain");
+                }
+                else if (passenger_type == 1)
+                {
+                    game_controller.DecreasePassengerCount("CommuterTrain");
+                }
+                else if (passenger_type == 2)
+                {
+                    game_controller.DecreasePassengerCount("HighSpeedTrain");
+                }
+            }
             Destroy(curr_passenger.gameObject);
         }
     }
@@ -168,11 +190,13 @@ public class DilemaPassengerUI : MonoBehaviour
 
         passenger_status = curr_passenger.GetPassengerStatus();
         dilema_dialogue_data = curr_passenger.GetDilemaPassengerDialogue();
+        passenger_type = curr_passenger.GetPassengerType();
 
         Debug.Log("Passenger Status : " + passenger_status);
     }
     public void AcceptButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         dilema_options.SetActive(false);
 
         StartCoroutine(AcceptButtonLoading());
@@ -183,15 +207,22 @@ public class DilemaPassengerUI : MonoBehaviour
 
         if (passenger_status == "rich")
         {
+            MoneyAndReputation.Instance.AddMoney(300);
+            MoneyAndReputation.Instance.MinusReputation(60);
+            AudioManager.instance.PlaySFX("PickMoney");
             StartDilemaDialogue("Accept");
         }
         else if(passenger_status == "student")
         {
+            MoneyAndReputation.Instance.MinusMoney(500);
+            MoneyAndReputation.Instance.AddReputation(100);
+            AudioManager.instance.PlaySFX("Buy");
             StartDilemaDialogue("Accept");
         }
     }
     public void DenyButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         dilema_options.SetActive(false);
 
         StartCoroutine(DenyButtonLoading());
@@ -202,15 +233,20 @@ public class DilemaPassengerUI : MonoBehaviour
 
         if (passenger_status == "rich")
         {
+            MoneyAndReputation.Instance.AddReputation(50);
+            AudioManager.instance.PlaySFX("Correct");
             StartDilemaDialogue("Deny");
         }
         else if(passenger_status == "student")
         {
+            MoneyAndReputation.Instance.MinusReputation(25);
+            AudioManager.instance.PlaySFX("Wrong");
             StartDilemaDialogue("Deny");
         }
     }
     public void DetainButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         dilema_options.SetActive(false);
 
         StartCoroutine(DetainButtonLoading());
@@ -219,6 +255,18 @@ public class DilemaPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.MinusReputation(40);
+        AudioManager.instance.PlaySFX("Wrong");
         StartDilemaDialogue("Detain");
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        dilema_options.SetActive(false);
+
+        dialogue_on = false;
+        dialoguebox_on = false;
     }
 }

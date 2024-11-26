@@ -31,6 +31,8 @@ public class DrunkPassengerUI : MonoBehaviour
     // References
     private DrunkPassenger curr_passenger;
     public PlayerMovement player_movement;
+    public Tutorial tutorial;
+    public GameController game_controller;
 
     private void Start()
     {
@@ -86,12 +88,22 @@ public class DrunkPassengerUI : MonoBehaviour
 
         switch (decision)
         {
-            case "Allow":
-                foreach(string name in drunk_dialogue_data.allow_name)
+            case "FirstAllow":
+                foreach(string name in drunk_dialogue_data.first_allow_name)
                 {
                     names.Enqueue(name);
                 }
-                foreach(string line in drunk_dialogue_data.allow_line)
+                foreach(string line in drunk_dialogue_data.first_allow_line)
+                {
+                    lines.Enqueue(line);
+                }
+                break;
+            case "SecondAllow":
+                foreach (string name in drunk_dialogue_data.second_allow_name)
+                {
+                    names.Enqueue(name);
+                }
+                foreach (string line in drunk_dialogue_data.second_allow_line)
                 {
                     lines.Enqueue(line);
                 }
@@ -190,6 +202,14 @@ public class DrunkPassengerUI : MonoBehaviour
         {
             passenger_solved = false;
             is_angry = false;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                game_controller.DecreasePassengerCount("CommuterTrain");
+            }
             Destroy(curr_passenger.gameObject);
         }
     }
@@ -202,19 +222,41 @@ public class DrunkPassengerUI : MonoBehaviour
     }
     public void AllowButton()
     {
-        drunk_options.SetActive(false);
-        passenger_solved = true;
+        AudioManager.instance.PlaySFX("Click");
+        if (!is_angry)
+        {
+            drunk_options.SetActive(false);
+            passenger_solved = true;
 
-        StartCoroutine(AllowDialogueLoading());
+            StartCoroutine(FirstAllowDialogueLoading());
+        }
+        else
+        {
+            drunk_options.SetActive(false);
+            passenger_solved = true;
+
+            StartCoroutine(SecondAllowDialogueLoading());
+        }
     }
-    private IEnumerator AllowDialogueLoading()
+    private IEnumerator FirstAllowDialogueLoading()
     {
         yield return new WaitForSeconds(0.5f);
 
-        StartDrunkDialogue("Allow");
+        MoneyAndReputation.Instance.MinusReputation(40);
+        AudioManager.instance.PlaySFX("Wrong");
+        StartDrunkDialogue("FirstAllow");
+    }
+    private IEnumerator SecondAllowDialogueLoading()
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        MoneyAndReputation.Instance.MinusReputation(40);
+        AudioManager.instance.PlaySFX("Wrong");
+        StartDrunkDialogue("SecondAllow");
     }
     public void DenyButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         if (!is_angry)
         {
             angry_chance = Random.value;
@@ -251,16 +293,21 @@ public class DrunkPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.AddReputation(75);
+        AudioManager.instance.PlaySFX("Correct");
         StartDrunkDialogue("SafeDeny");
     }
     private IEnumerator DangerDenyDialogueLoading()
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.MinusReputation(40);
+        AudioManager.instance.PlaySFX("Wrong");
         StartDrunkDialogue("DangerDeny");
     }
     public void DetainButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         if (!is_angry)
         {
             drunk_options.SetActive(false);
@@ -280,12 +327,26 @@ public class DrunkPassengerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.MinusReputation(40);
+        AudioManager.instance.PlaySFX("Wrong");
         StartDrunkDialogue("WrongDetain");
     }
     private IEnumerator CorrectDetainDialogueLoading()
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.AddReputation(75);
+        AudioManager.instance.PlaySFX("Correct");
         StartDrunkDialogue("CorrectDetain");
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        drunk_options.SetActive(false);
+
+        dialogue_on = false;
+        dialoguebox_on = false;
     }
 }

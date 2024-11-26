@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5420975042448956199}
   - component: {fileID: -621483500749700134}
   - component: {fileID: 1849393702682764128}
+  - component: {fileID: 5424535721693666141}
   m_Layer: 0
   m_Name: DrunkPassenger
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 1096609179
   m_SortingLayer: 2
   m_SortingOrder: 1
-  m_Sprite: {fileID: 1436417644, guid: 7b40e49a232548a38c895843d08ff3b9, type: 3}
+  m_Sprite: {fileID: -2236574285054630480, guid: 8b2ed847b2deb8f4799f18000d7de218, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,8 +124,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.33, y: 1.76}
+  m_Offset: {x: 0, y: 0.25}
+  m_Size: {x: 0.29, y: 0.5}
   m_Direction: 0
 --- !u!114 &-621483500749700134
 MonoBehaviour:
@@ -140,11 +141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
     names:
-    - Drunk Passenger
-    - Drunk Passenger
+    - NPC
     lines:
-    - Yo wassup, handsome officer
-    - I can, stay here to seduce woman right?
+    - "Hey\u2026 I\u2019m just trying to get home. Let me on\u2026"
 --- !u!114 &1849393702682764128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,30 +157,65 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drunk_dialogue_data:
-    allow_name:
-    - Drunk Passenger
-    allow_line:
-    - HAHAHAHA, That's my officer, now I can seduce woman all I want
+    first_allow_name:
+    - Player
+    - NPC
+    first_allow_line:
+    - "You\u2019re good to go."
+    - "Thanks\u2026 I knew you were the good guy\u2026!"
+    second_allow_name:
+    - Player
+    - NPC
+    second_allow_line:
+    - "You\u2019re good to go."
+    - "Should\u2019ve said that from the start you fool!"
     safe_deny_name:
-    - Drunk Passenger
+    - Player
+    - NPC
     safe_deny_line:
-    - Huh? You're not fun. Ye, ye, no need to do that, I go out right now.
+    - "You\u2019re too drunk to board. Come back when you\u2019ve sobered up."
+    - "Ah, alright\u2026 you\u2019re right\u2026"
     wrong_detain_name:
-    - Drunk Passenger
+    - Player
+    - NPC
     wrong_detain_line:
-    - Hey, how dare you to do this to me. Don't you know how I am. I'll remember
-      ur name and I'll smack your ass off when I see you again.
+    - "You\u2019re causing trouble. I\u2019m detaining you."
+    - What?! I just wanted to get home!
     angry_name:
-    - Drunk Passenger
+    - NPC
     angry_line:
-    - HUH? I CAN'T? WHO ARE YOU TO SAY THAT TO ME? HOW DARE YOU DENY ME?
+    - "WHO ARE YOU TO TELL ME WHAT TO DO?! I\u2019LL DO WHAT I WANT!"
     danger_deny_name:
-    - Drunk Passenger
-    - Drunk Passenger
+    - Player
+    - NPC
     danger_deny_line:
-    - I'LL KILL YOU ALL RIGHT NOW
-    - And with that he created a riot in the train
+    - "You\u2019re too drunk to board. Come back when you\u2019ve sobered up."
+    - I ALREADY TOLD YOU, WHO ARE YOU TO TELL ME WHAT TO DO!
     correct_detain_name:
-    - Drunk Passenger
+    - Player
+    - NPC
     correct_detain_line:
-    - HEYYY LET ME GO. DON'T YOU KNOW WHO I AM?
+    - "You\u2019re causing trouble. I\u2019m detaining you."
+    - "LET ME GO, YOU\u2019LL REGRET THIS!"
+--- !u!95 &5424535721693666141
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7926447092738050928}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 563fb8ac73b85db41834c8c80592d3e4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

@@ -27,6 +27,7 @@ public class ConfusedPassangerUI : MonoBehaviour
     public Sprite[] ticket_sprite;
     private int ticket_type;
     private int passenger_type;
+    private bool ticket_showed = false;
     private bool ticket_checked = false;
 
     // Judgement Dialogue
@@ -35,6 +36,8 @@ public class ConfusedPassangerUI : MonoBehaviour
     // References
     private ConfusedPassanger curr_passenger;
     public PlayerMovement player_movement;
+    public Tutorial tutorial;
+    public GameController game_controller;
 
     private void Start()
     {
@@ -89,7 +92,7 @@ public class ConfusedPassangerUI : MonoBehaviour
 
         switch (decision)
         {
-            case "Correct":
+            case "Allow":
                 foreach (string name in confused_dialogue_data.correct_ticket_name)
                 {
                     names.Enqueue(name);
@@ -99,7 +102,7 @@ public class ConfusedPassangerUI : MonoBehaviour
                     lines.Enqueue(line);
                 }
                 break;
-            case "Wrong":
+            case "Deny":
                 foreach (string name in confused_dialogue_data.wrong_ticket_name)
                 {
                     names.Enqueue(name);
@@ -162,7 +165,27 @@ public class ConfusedPassangerUI : MonoBehaviour
         else if(curr_passenger != null && ticket_checked)
         {
             ticket_checked = false;
+            if (tutorial != null && tutorial.is_training)
+            {
+                tutorial.MinusPassengerCount();
+            }
+            else
+            {
+                if(passenger_type == 0)
+                {
+                    game_controller.DecreasePassengerCount("MetroTrain");
+                }
+                else if(passenger_type == 1)
+                {
+                    game_controller.DecreasePassengerCount("CommuterTrain");
+                }
+                else if(passenger_type == 2)
+                {
+                    game_controller.DecreasePassengerCount("HighSpeedTrain");
+                }
+            }
             Destroy(curr_passenger.gameObject);
+            
         }
     }
     private void ShowTicketCheckButton()
@@ -180,11 +203,23 @@ public class ConfusedPassangerUI : MonoBehaviour
     }
     public void ShowTicket()
     {
-        ticket_image.gameObject.SetActive(true);
-        ticket_image.sprite = ticket_sprite[ticket_type];
+        AudioManager.instance.PlaySFX("Click");
+        if (!ticket_showed)
+        {
+            ticket_image.gameObject.SetActive(true);
+            ticket_image.sprite = ticket_sprite[ticket_type];
+            ticket_showed = true;
+        }
+        else
+        {
+            ticket_image.gameObject.SetActive(false);
+            ticket_showed = false;
+        }
+        
     }
     public void AllowButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         ticket_image.gameObject.SetActive(false);
         ticket_check_button.SetActive(false);
         options.SetActive(false);
@@ -197,15 +232,20 @@ public class ConfusedPassangerUI : MonoBehaviour
 
         if (ticket_type == passenger_type)
         {
-            StartConfusedDialogue("Correct");
+            MoneyAndReputation.Instance.AddReputation(50);
+            AudioManager.instance.PlaySFX("Correct");
+            StartConfusedDialogue("Allow");
         }
         else
         {
-            StartConfusedDialogue("Wrong");
+            MoneyAndReputation.Instance.MinusReputation(25);
+            AudioManager.instance.PlaySFX("Wrong");
+            StartConfusedDialogue("Allow");
         }
     }
     public void DenyButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         ticket_image.gameObject.SetActive(false);
         ticket_check_button.SetActive(false);
         options.SetActive(false);
@@ -218,15 +258,20 @@ public class ConfusedPassangerUI : MonoBehaviour
 
         if (ticket_type != passenger_type)
         {
-            StartConfusedDialogue("Correct");
+            MoneyAndReputation.Instance.AddReputation(50);
+            AudioManager.instance.PlaySFX("Correct");
+            StartConfusedDialogue("Deny");
         }
         else
         {
-            StartConfusedDialogue("Wrong");
+            MoneyAndReputation.Instance.MinusReputation(25);
+            AudioManager.instance.PlaySFX("Wrong");
+            StartConfusedDialogue("Deny");
         }
     }
     public void DetainButton()
     {
+        AudioManager.instance.PlaySFX("Click");
         ticket_image.gameObject.SetActive(false);
         ticket_check_button.SetActive(false);
         options.SetActive(false);
@@ -237,6 +282,21 @@ public class ConfusedPassangerUI : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
+        MoneyAndReputation.Instance.MinusReputation(25);
+        AudioManager.instance.PlaySFX("Wrong");
         StartConfusedDialogue("Detain");
+    }
+    public void ClearCurrentMinigame()
+    {
+        StopAllCoroutines();
+
+        dialogue_box.SetActive(false);
+        ticket_check_button.SetActive(false);
+        options.SetActive(false);
+        ticket_image.gameObject.SetActive(false);
+
+        dialogue_on = false;
+        dialoguebox_on = false;
+        ticket_showed = false;
     }
 }
