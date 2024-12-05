@@ -147,8 +147,6 @@ public class PriorityPassengerUI : MonoBehaviour
     }
     public void EndDialogue()
     {
-        Debug.Log("End dialogue");
-        dialogue_box.SetActive(false);
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
@@ -196,6 +194,7 @@ public class PriorityPassengerUI : MonoBehaviour
     public void AllowSitButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         priority_options.SetActive(false);
 
         StartCoroutine(AllowButtonLoading());
@@ -220,6 +219,7 @@ public class PriorityPassengerUI : MonoBehaviour
     public void DenySitButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         priority_options.SetActive(false);
 
         StartCoroutine(DenyButtonLoading());
@@ -244,6 +244,7 @@ public class PriorityPassengerUI : MonoBehaviour
     public void DetainButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         priority_options.SetActive(false);
 
         StartCoroutine(DetainButtonLoading());

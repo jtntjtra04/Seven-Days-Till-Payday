@@ -9,9 +9,17 @@ using UnityEngine.UI;
 public class Tutorial : MonoBehaviour
 {
     public GameObject tutorial_panel;
-    public Sprite[] tutorial_sprites;
+    public Sprite[] tutorial_sprites_d7;
+    public Sprite[] tutorial_sprites_d6;
+    public Sprite[] tutorial_sprites_d5;
+    public Sprite[] tutorial_sprites_d4;
+    public Sprite[] tutorial_sprites_d3;
+    private Sprite[] tutorial_sprites;
     public Image tutorial_image;
+    public GameObject right_button;
+    public GameObject left_button;
     private int curr_page;
+    private int curr_day;
     public bool already_tutor = false;
     public bool is_training = false;
     public int train_passenger_count;
@@ -111,27 +119,92 @@ public class Tutorial : MonoBehaviour
         already_tutor = false;
         tutorial_panel.SetActive(false);
     }
+    private void Update()
+    {
+        curr_day = time_system.day;
+    }
     public void ShowTutorial()
     {
-        tutorial_panel.SetActive(true);
-        if (tutorial_sprites != null)
+        if(curr_day > 2)
         {
-            curr_page = 0;
-            tutorial_image.sprite = tutorial_sprites[curr_page];
+            tutorial_panel.SetActive(true);
+
+            if(curr_day == 7)
+            {
+                tutorial_sprites = tutorial_sprites_d7;
+                right_button.SetActive(true);
+            }
+            else if(curr_day == 6)
+            {
+                tutorial_sprites = tutorial_sprites_d6;
+            }
+            else if(curr_day == 5)
+            {
+                tutorial_sprites = tutorial_sprites_d5;
+                right_button.SetActive(true);
+            }
+            else if(curr_day == 4)
+            {
+                tutorial_sprites = tutorial_sprites_d4;
+            }
+            else if(curr_day == 3)
+            {
+                tutorial_sprites = tutorial_sprites_d3;
+                right_button.SetActive(true);
+            }
+
+            if (tutorial_sprites != null)
+            {
+                curr_page = 0;
+                tutorial_image.sprite = tutorial_sprites[curr_page];
+            }
+            player_movement.DisableMovement();
         }
-        player_movement.DisableMovement();
+        else
+        {
+            StartCoroutine(ShowTrainingDialogue());
+        }
     }
     public void CloseTutorial()
     {
         AudioManager.instance.PlaySFX("Click");
+        right_button.SetActive(false);
+        left_button.SetActive(false);
         tutorial_panel.SetActive(false);
         //player_movement.EnableMovement();
         StartCoroutine(ShowTrainingDialogue());
     }
+    public void RightShift()
+    {
+        curr_page++;
+        if(curr_page == tutorial_sprites.Length - 1)
+        {
+            right_button.SetActive(false);
+        }
+        else
+        {
+            left_button.SetActive(true);
+        }
+        tutorial_image.sprite = tutorial_sprites[curr_page];
+        AudioManager.instance.PlaySFX("Click");
+    }
+    public void LeftShift()
+    {
+        curr_page--;
+        if(curr_page == 0)
+        {
+            left_button.SetActive(false);
+        }
+        else
+        {
+            right_button.SetActive(true);
+        }
+        tutorial_image.sprite = tutorial_sprites[curr_page];
+        AudioManager.instance.PlaySFX("Click");
+    }
     private IEnumerator ShowTrainingDialogue()
     {
         yield return new WaitForSeconds(0.5f);
-        int curr_day = time_system.day;
 
         if(curr_day > 0 && curr_day <= training_dialogues.Count)
         {

@@ -20,8 +20,12 @@ public class ConfusedPassanger : MonoBehaviour
 
     private void Start()
     {
-        ticket_type = Random.Range(0, 2);
+        ticket_type = Random.Range(0, 3);
         Debug.Log("Ticket Type : " + ticket_type);
+        GetPassengerPosition();
+    }
+    private void Update()
+    {
         GetPassengerPosition();
     }
     public int GetTicketType()

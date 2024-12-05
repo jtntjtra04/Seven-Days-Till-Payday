@@ -30,6 +30,10 @@ public class DilemaPassenger : MonoBehaviour
         }
         GetPassengerPosition();
     }
+    private void Update()
+    {
+        GetPassengerPosition();
+    }
     public string GetPassengerStatus()
     {
         return passenger_status;

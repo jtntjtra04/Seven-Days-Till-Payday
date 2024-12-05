@@ -147,7 +147,6 @@ public class BusinessmanPassengerUI : MonoBehaviour
     }
     public void EndDialogue()
     {
-        dialogue_box.SetActive(false);
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
@@ -192,6 +191,7 @@ public class BusinessmanPassengerUI : MonoBehaviour
     public void ApproveButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         businessman_options.SetActive(false);
 
         StartCoroutine(ApproveDialogueLoading());
@@ -208,6 +208,7 @@ public class BusinessmanPassengerUI : MonoBehaviour
     public void DenyButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         businessman_options.SetActive(false);
 
         StartCoroutine(DenyDialogueLoading());
@@ -223,6 +224,7 @@ public class BusinessmanPassengerUI : MonoBehaviour
     public void DetainButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         businessman_options.SetActive(false);
 
         StartCoroutine(DetainDialogueLoading());

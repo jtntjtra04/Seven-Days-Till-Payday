@@ -221,8 +221,6 @@ public class ForeignPassengerUI : MonoBehaviour
     }
     public void EndDialogue()
     {
-        Debug.Log("End dialogue");
-        dialogue_box.SetActive(false);
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
@@ -320,6 +318,7 @@ public class ForeignPassengerUI : MonoBehaviour
     public void AllowButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         translator_button.SetActive(false);
         foreign_options.SetActive(false);
 
@@ -351,6 +350,7 @@ public class ForeignPassengerUI : MonoBehaviour
     public void DenyButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         translator_button.SetActive(false);
         foreign_options.SetActive(false);
 
@@ -381,6 +381,8 @@ public class ForeignPassengerUI : MonoBehaviour
     }
     public void DetainButton()
     {
+        AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         translator_button.SetActive(false);
         foreign_options.SetActive(false);
 

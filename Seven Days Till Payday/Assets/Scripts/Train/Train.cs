@@ -186,7 +186,7 @@ public class Train : MonoBehaviour
     }
     private void StartTrainTimer()
     {
-        float[] timer_option = { 45f, 60f, 90f, 120f };
+        float[] timer_option = { 60f, 90f, 120f, 180f };
         train_timer = timer_option[Random.Range(0, timer_option.Length)];
         curr_timer = train_timer;
         Debug.Log("Train timer : " +  curr_timer);
@@ -221,7 +221,7 @@ public class Train : MonoBehaviour
         Debug.Log("Depart train in 3 seconds");
         yield return new WaitForSeconds(3f);
 
-        if(curr_timer == 45f)
+        if(curr_timer == 60f)
         {
             MoneyAndReputation.Instance.AddReputation(150);
             Debug.Log("Special train departed! Added 150 reputations");

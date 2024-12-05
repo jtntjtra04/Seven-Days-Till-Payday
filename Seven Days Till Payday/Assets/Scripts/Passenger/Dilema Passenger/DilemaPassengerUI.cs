@@ -148,8 +148,6 @@ public class DilemaPassengerUI : MonoBehaviour
     }
     public void EndDialogue()
     {
-        Debug.Log("End dialogue");
-        dialogue_box.SetActive(false);
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
@@ -197,6 +195,7 @@ public class DilemaPassengerUI : MonoBehaviour
     public void AcceptButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         dilema_options.SetActive(false);
 
         StartCoroutine(AcceptButtonLoading());
@@ -223,6 +222,7 @@ public class DilemaPassengerUI : MonoBehaviour
     public void DenyButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         dilema_options.SetActive(false);
 
         StartCoroutine(DenyButtonLoading());
@@ -247,6 +247,7 @@ public class DilemaPassengerUI : MonoBehaviour
     public void DetainButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         dilema_options.SetActive(false);
 
         StartCoroutine(DetainButtonLoading());

@@ -153,8 +153,6 @@ public class ConfusedPassangerUI : MonoBehaviour
     }
     public void EndDialogue()
     {
-        Debug.Log("End dialogue");
-        dialogue_box.SetActive(false);
         dialoguebox_on = false;
         player_movement.EnableMovement();
 
@@ -220,6 +218,7 @@ public class ConfusedPassangerUI : MonoBehaviour
     public void AllowButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         ticket_image.gameObject.SetActive(false);
         ticket_check_button.SetActive(false);
         options.SetActive(false);
@@ -246,6 +245,7 @@ public class ConfusedPassangerUI : MonoBehaviour
     public void DenyButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         ticket_image.gameObject.SetActive(false);
         ticket_check_button.SetActive(false);
         options.SetActive(false);
@@ -272,6 +272,7 @@ public class ConfusedPassangerUI : MonoBehaviour
     public void DetainButton()
     {
         AudioManager.instance.PlaySFX("Click");
+        dialogue_box.SetActive(false);
         ticket_image.gameObject.SetActive(false);
         ticket_check_button.SetActive(false);
         options.SetActive(false);

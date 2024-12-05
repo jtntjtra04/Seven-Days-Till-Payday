@@ -20,6 +20,10 @@ public class BusinessmanPassenger : MonoBehaviour
     {
         GetPassengerPosition();
     }
+    private void Update()
+    {
+        GetPassengerPosition();
+    }
     private void GetPassengerPosition()
     {
         if (Physics2D.OverlapCircle(transform.position, 0.1f, LayerMask.GetMask("Metro")) || Physics2D.OverlapCircle(transform.position, 0.1f, LayerMask.GetMask("MetroInterior")))

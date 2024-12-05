@@ -151,18 +151,18 @@ public class GameController : MonoBehaviour
 
         if(time_system.day == 7 || time_system.day == 6)
         {
-            game_duration = 180f;
+            game_duration = 120f;
             SpawnTrain("MetroTrain");
         }
         else if(time_system.day == 5 || time_system.day == 4)
         {
-            game_duration = 240f;
+            game_duration = 180f;
             SpawnTrain("MetroTrain");
             SpawnTrain("CommuterTrain");
         }
         else
         {
-            game_duration = 300f;
+            game_duration = 240f;
             SpawnTrain("MetroTrain");
             SpawnTrain("CommuterTrain");
             SpawnTrain("HighSpeedTrain");
@@ -364,8 +364,9 @@ public class GameController : MonoBehaviour
             case "CommuterTrain":
 
                 commuter_passenger_count--;
+                Debug.Log("Commuter_passenger_count : " + commuter_passenger_count);
 
-                if(commuter_passenger_count <= 0)
+                if (commuter_passenger_count <= 0)
                 {
                     if (player.player_on_commuter)
                     {
@@ -377,8 +378,9 @@ public class GameController : MonoBehaviour
             case "HighSpeedTrain":
 
                 highspeed_passenger_count--;
+                Debug.Log("Highspeed_passenger_count : " + highspeed_passenger_count);
 
-                if(highspeed_passenger_count <= 0)
+                if (highspeed_passenger_count <= 0)
                 {
                     if (player.player_on_highspeed)
                     {
