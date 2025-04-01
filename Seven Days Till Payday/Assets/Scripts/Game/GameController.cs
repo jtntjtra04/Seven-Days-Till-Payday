@@ -187,7 +187,6 @@ public class GameController : MonoBehaviour
         AudioManager.instance.IncreaseVolumeMusic();
         AudioManager.instance.bgm_source.Stop();
 
-        tutorial.gameObject.SetActive(true);
         time_system.UpdateDay();
     }
     private void UpdateTimer(float time)

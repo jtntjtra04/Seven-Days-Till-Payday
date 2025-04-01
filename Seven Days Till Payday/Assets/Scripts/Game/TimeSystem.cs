@@ -71,7 +71,7 @@ public class TimeSystem : MonoBehaviour
             tutorial.SpawnTutorialPassanger(day);
             barrier.PlaceBarrier();
         }
-
+        tutorial.gameObject.SetActive(true);
         player_movement.EnableMovement();
     }
 }

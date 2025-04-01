@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class SwitchPlace : MonoBehaviour
 {
@@ -9,8 +10,16 @@ public class SwitchPlace : MonoBehaviour
     private bool is_switching = false;
     public Animator transition_anim;
 
+    // Icon
+    [SerializeField] private GameObject interact_icon;
+
     // References
     public PlayerMovement player_movement;
+
+    private void Start()
+    {
+        //interact_icon.SetActive(false);
+    }
 
     private void Update()
     {
@@ -24,6 +33,7 @@ public class SwitchPlace : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             can_switch_place = true;
+            interact_icon.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -31,6 +41,7 @@ public class SwitchPlace : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             can_switch_place = false;
+            interact_icon.SetActive(false);
         }
     }
     private IEnumerator TransitionPlace()

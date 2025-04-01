@@ -17,6 +17,9 @@ public class TutorialDialogue : MonoBehaviour
     // Time System
     public TimeSystem time_system;
 
+    // Icon
+    [SerializeField] private GameObject visual_icon;
+
     // References
     private Tutorial tutorial;
 
@@ -28,6 +31,7 @@ public class TutorialDialogue : MonoBehaviour
     private void Start()
     {
         game_ending = false;
+        visual_icon.SetActive(false);
     }
     private void Update()
     {
@@ -53,6 +57,7 @@ public class TutorialDialogue : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             can_dialogue = true;
+            visual_icon.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -60,6 +65,7 @@ public class TutorialDialogue : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             can_dialogue = false;
+            visual_icon.SetActive(false);
         }
     }
 }

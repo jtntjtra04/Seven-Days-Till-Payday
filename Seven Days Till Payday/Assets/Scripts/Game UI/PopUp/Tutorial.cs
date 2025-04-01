@@ -353,7 +353,7 @@ public class Tutorial : MonoBehaviour
     public void EndGame()
     {
         int money = MoneyAndReputation.Instance.money;
-        if(money < 30000)
+        if(money >= 30000)
         {
             StartCoroutine(HappyEndingCutscene());
         }
@@ -390,7 +390,7 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(7f);
 
         ending_panel.SetActive(true);
-        player_happy.SetActive(true);
+        //player_happy.SetActive(true);
         ending_text.text = "Sad Ending";
         ending_description.text = "The week is over, but so is your chance to pay the rent. With your reputation tarnished and no place to call home, you're left wondering if the job was worth it after all. The station moves on, but you’re left behind, another casualty of the daily grind.";
 

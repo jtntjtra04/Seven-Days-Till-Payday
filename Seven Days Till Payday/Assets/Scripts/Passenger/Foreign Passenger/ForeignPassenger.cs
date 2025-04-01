@@ -23,7 +23,7 @@ public class ForeignPassenger : MonoBehaviour
 
     private void Start()
     {
-        question_type = Random.Range(1, 3);
+        question_type = Random.Range(1, 4);
         Debug.Log("Question Type : " +  question_type);
     }
 

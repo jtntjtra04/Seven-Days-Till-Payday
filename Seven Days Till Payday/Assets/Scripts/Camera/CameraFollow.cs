@@ -4,39 +4,33 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform cameraTransform;
-    public float orthoSize = 7f; // Camera size
-    public float aspectRatio = 16f / 9f; // Screen aspect ratio
-    public Collider2D confinerCollider;
+    public Transform target;
+    public Transform leftBounds;
+    public Transform rightBounds;
+    public float smoothDampTime = 0.15f;
+    private Vector3 smoothDampVelocity = Vector3.zero;
 
-    private float camHeight;
-    private float camWidth;
-    private Bounds mapBounds;
+    private float camWidth, camHeight, levelMinX, levelMaxX;
 
+    // Start is called before the first frame update
     void Start()
     {
-        // Calculate camera viewport extents
-        camHeight = orthoSize;
-        camWidth = orthoSize * aspectRatio;
+        camHeight = Camera.main.orthographicSize * 2;
+        camWidth = camHeight * Camera.main.aspect;
 
-        // Get bounds from collider
-        if (confinerCollider != null)
-            mapBounds = confinerCollider.bounds;
+        float leftBoundWidth = leftBounds.GetComponentInChildren<SpriteRenderer>().bounds.size.x / 2;
+        float rightBoundWidth = rightBounds.GetComponentInChildren<SpriteRenderer>().bounds.size.x / 2;
+
+        levelMinX = leftBounds.position.x + leftBoundWidth + (camWidth / 2);
+        levelMaxX = rightBounds.position.x - rightBoundWidth - (camWidth / 2);
     }
-
-    void LateUpdate()
+    void Update()
     {
-        Vector3 camPosition = cameraTransform.position;
-
-        // Clamp camera position to stay within bounds
-        float minX = mapBounds.min.x + camWidth;
-        float maxX = mapBounds.max.x - camWidth;
-        float minY = mapBounds.min.y + camHeight;
-        float maxY = mapBounds.max.y - camHeight;
-
-        camPosition.x = Mathf.Clamp(camPosition.x, minX, maxX);
-        camPosition.y = Mathf.Clamp(camPosition.y, minY, maxY);
-
-        cameraTransform.position = camPosition;
+        if (target)
+        {
+            float targetX = Mathf.Max(levelMinX, Mathf.Min(levelMaxX, target.position.x));
+            float x = Mathf.SmoothDamp(transform.position.x, targetX, ref smoothDampVelocity.x, smoothDampTime);
+            transform.position = new Vector3(x, transform.position.y, transform.position.z);
+        }
     }
 }
