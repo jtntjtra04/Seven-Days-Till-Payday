@@ -1,11 +1,11 @@
 # Seven Days Till Payday
 
 <p align="center">
-<img src="https://github.com/jtntjtra04/jtntjtra04/blob/fe6df8bf2a389d19c809c617aa118f1e0c558aaa/mendacius_conspiracy_demo.gif" alt="Seven Days Till Payday Gameplay">
+<img src="https://github.com/jtntjtra04/jtntjtra04/blob/81d63d0a4fcf6321090c252ca32987d10bd55981/seven_days_till_payday_demo.gif" alt="Seven Days Till Payday Gameplay">
 </p>
 
 ## 🔴 About This Project
-<p align="justify">Seven Days Till Payday is a game project that was made for MAGE 2024 competition. Afterwards, it used as research material for thesis. We developed this game for 1 month. </p>
+<p align="justify">Seven Days Till Payday is a game project that was made for MAGE 2024 competition. Afterwards, it used as research material for thesis. Our team developed this game project for 1 month. </p>
 
 <br>
 
@@ -22,11 +22,12 @@
 <details>
 <summary> <b> My Contribution as (Game programmer)</b> </summary>
 
-- Scene Movement
-- Core Mechanics
+- Train Movement and Mechanic
+- Time and Day System
 - Puzzle Mechanics
-- Time and Health System
+- Camera System
 - UI Navigation
+- Program All Passenger Objects
 - Menu
 - Environment
 - Audio Programming
@@ -37,12 +38,12 @@
 <br>
 
 ## ♦️About Game
-<p align="justify">Mendacius Conspiracy is a 2D horror simulation game where the player work as a new manager at the news company. The story takes time in 2030, an alien species named "Mendacius" came to infiltrate earth. They steal people's identities, blend in as ordinary citizens, and become difficult to recognize. Their goal is to create chaos using misinformation, hoaxes and propaganda, which has the potential to bring about world destruction. As a new manager, we have to stop them by clearing all the puzzle and solve the mysteries before it's too late.</p>
+<p align="justify">Seven Days Till Payday is a 2D puzzle simulation game where the player play as a newly hired public security officer at a bustling train station. With only seven days to pay our overdue rent, the player must navigate the challenges of keeping order in the station and onboard trains./p>
 
 <br>
 
 ## 🎮 Gameplay
-<p align="justify">The player responsible for fact-checking articles before they are published. Throughout the week, players must search for hoax information, uncover hidden clues, and ultimately identify and reveal who Mendacius is hiding among the company's employees.</p>
+<p align="justify">The game goal is to ensure that every passenger, regardless of status or background, receives equal treatment while maintaining the safety and security of the trains. Our actions will determine whether you can earn enough money to cover your rent—or if you'll face eviction. So every day within 7 days, the train with passengers will coming and our task is to take care of the passengers need to strive for the credibility that in the last day will be converted into money.</p>
 
 <br>
 
@@ -50,12 +51,12 @@
 
 |  Script       | Description                                                  |
 | ------------------- | ------------------------------------------------------------ |
-| `Worker.cs` | Control all the worker mechanics and generate all the impostor randomly |
-| `WorkersData.cs`  | Manage the worker's databases |
-| `Credibility.cs`  | Control the credibility or health system |
-| `ActionPoint.cs`  | Control action point for the time system |
-| `SaveSystem.cs`  | To manage the save system mechanic in the game |
-| `ChangeScene.cs`  | Important code to control all the scenes in the game (change environtment) |
+| `GameController.cs` | Control all the core mechanics related to game system |
+| `MoneyAndReputation.cs`  | Manage the money and reputation system which is the determinant of victory |
+| `TimeSystem.cs`  | Control the time system in the game |
+| `PlayerMovement.cs`  | Control the player movement |
+| `Train.cs`  | Control all the train mechanic as an object-oriented programming |
+| `PassengerDialogue.cs`  | Takes care of all the dialogue systems, which are the basis of the game's core puzzle |
 | `etc`  |
 
 <br>
